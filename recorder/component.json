@@ -44,7 +44,7 @@
     {
       "path": "backup-ca-bundle.pem",
       "mode": "0644",
-      "sha256": "427c064216761a1e72a8b30f0d954d08cb6e4435a82091fb865afd20c8497285",
+      "sha256": "74f86136f14b9681c4efe194481d99d159bceccf28eddac6ea13facee5a98d78",
       "from": "files/backup-ca-bundle.pem"
     },
     {

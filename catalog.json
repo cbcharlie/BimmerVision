@@ -17,9 +17,9 @@
         "name": "bimmervision@0.2.79.tgz",
         "size": 78834,
         "sha256": "356f996968adffb59e5a76b452abc7e7614373dc6e6d64cd204980b916699296",
-        "url": "https://raw.githubusercontent.com/Hexphase/BimmerVision/main/bimmervision@0.2.79.tgz"
+        "url": "https://raw.githubusercontent.com/cbcharlie/BimmerVision/main/bimmervision@0.2.79.tgz"
       },
-      "icon": "https://raw.githubusercontent.com/Hexphase/BimmerVision/main/store-icon.png",
+      "icon": "https://raw.githubusercontent.com/cbcharlie/BimmerVision/main/store-icon.png",
       "iconSha256": "2699dd3db86fef702d0889c7c6bd7b231bb62490898a257dc41113a48a158836"
     },
     {
@@ -40,9 +40,9 @@
       "uninstallable": true,
       "artifact": {
         "name": "bimmervision-recorder@0.2.79.tgz",
-        "size": 3406144,
-        "sha256": "75ad5a24ebbe57d43fe88857cbbf50a1caf3898325c784cee3b079dd0d376003",
-        "url": "https://raw.githubusercontent.com/Hexphase/BimmerVision/main/bimmervision-recorder@0.2.79.tgz"
+        "size": 3407821,
+        "sha256": "2221b5d135addb7230775190e93fcab4b02468eb0fc84a1556f640655e143801",
+        "url": "https://raw.githubusercontent.com/cbcharlie/BimmerVision/main/bimmervision-recorder@0.2.79.tgz"
       }
     }
   ]
