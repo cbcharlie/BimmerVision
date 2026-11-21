@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "id": "bimmervision",
-  "version": "0.2.78",
-  "description": "Continuous four-camera USB recording for iDrive 7 MGU with Surround View. Includes Google Drive Remote Backup over Wi-Fi, horn-triggered clip protection, and phone/computer playback with recorded telemetry. Back up selected recordings using your phone\u2019s internet and view your saved BimmerVision backups at bimmervision.app. Direct capture performs no BMW Drive Recorder subscription check; a car without an entitlement has not yet been physically tested.",
+  "version": "0.2.79",
+  "description": "Continuous four-camera recording to USB or capped MGU internal storage for iDrive 7 with Surround View. Configure internal storage from 1 to 10 GB with automatic removal of the oldest unlocked clips. Includes Google Drive Remote Backup, horn protection, and phone/computer playback with vehicle telemetry.",
   "mguHmi": [
     "ID7"
   ],
   "title": "BimmerVision",
   "requires": {
-    "bimmervision-recorder": "0.2.78"
+    "bimmervision-recorder": "0.2.79"
   }
 }

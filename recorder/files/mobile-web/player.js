@@ -212,8 +212,8 @@ class BimmerVisionPlayer {
     if (!response.ok) throw new Error('Recording download unavailable: HTTP '+response.status);
     this.totalBytes=Number(response.headers.get('Content-Length')) || expectedBytes || 0;
     this.loadedByteOffset=0;
-    const readingLocal=window.BVSourceManager?.source?.kind==='usb';
-    const loadingText=readingLocal?'Reading the complete recording from your USB drive…':'Downloading the complete recording…';
+    const sourceKind=window.BVSourceManager?.source?.kind;
+    const loadingText=sourceKind==='usb'?'Reading the complete recording from your USB drive…':sourceKind==='car'?'Reading the complete recording from your car…':'Downloading the complete recording…';
     this._setState('loading',loadingText);
     const reader=response.body.getReader();
     let yieldedAt=performance.now();

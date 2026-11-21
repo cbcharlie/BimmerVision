@@ -320,7 +320,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (detectedDrives.length === 0) {
       driveListEl.innerHTML = `
         <div style="padding: 24px; text-align: center; color: var(--tesla-muted);">
-          No drives recorded on USB flash drive.
+          ${window.BVSourceManager.source?.kind==='car'?'No recordings found in the car’s recording storage.':'No drives recorded on USB flash drive.'}
         </div>
       `;
       overviewSubtitle.textContent = "No recordings found.";

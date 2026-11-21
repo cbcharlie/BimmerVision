@@ -20,7 +20,7 @@ Create a private, owner-only JSON file outside every source checkout. It must co
 
 ```sh
 BV_GOOGLE_DEVICE_CLIENT_FILE="$HOME/.config/bimmervision/google-device-client.minimal.json" \
-  node scripts/build-release.js --release-dir /absolute/external/release-0.2.78
+  node scripts/build-release.js --release-dir /absolute/external/release-0.2.79
 ```
 
 The output directory must be empty and outside every Git checkout. Setting `BV_GOOGLE_DEVICE_CLIENT_FILE` without this explicit staging mode is rejected before artifacts are written. The script never prints client values.

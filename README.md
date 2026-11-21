@@ -8,7 +8,7 @@
 
 BimmerVision brings continuous, multi-camera dashcam recording to compatible BMW vehicles running **iDrive 7 (MGU)**.
 
-Unlike BMW's factory Drive Recorder, which saves short clips, BimmerVision continuously captures footage from your vehicle's 360° Surround View camera system and saves it **directly to a USB flash drive**.
+Unlike BMW's factory Drive Recorder, which saves short clips, BimmerVision continuously captures footage from your vehicle's 360° Surround View camera system and saves it to a **USB flash drive or capped internal storage**.
 
 Record your drives automatically, review all four cameras simultaneously, and export footage with detailed vehicle telemetry—all from your phone or computer.
 
@@ -34,7 +34,7 @@ Record your drives automatically, review all four cameras simultaneously, and ex
 <li><strong>Review the route:</strong> recorded GPS positions connect the video to its location on the map. Available details depend on the metadata captured by the car.</li>
 </ul>
 <p><strong>Powered by your BMW’s KAFAS camera data:</strong> Driving View is generated from the built-in KAFAS camera perception data captured in the metadata alongside your recordings, combined with recorded vehicle telemetry and GPS.</p>
-<p>The same playback design is available in the car-hosted player and BimmerVision Web. Local USB recordings and metadata are processed in your browser; they are not uploaded to BimmerVision.</p>
+<p>The same playback design is available in the car-hosted player and BimmerVision Web. Local recordings and metadata are processed in your browser; they are not uploaded to BimmerVision.</p>
 <h3>Export the footage and its context</h3>
 <p>The example below is a frame from an exported video: all four camera views, the GPS map, Driving view and synchronized instrument overlays, including speed, speed limit, blinkers, steering and pedal activity. Choose the cameras and overlays you want when exporting.</p>
 <a href="docs/images/exported-video-metadata.png"><img src="docs/images/exported-video-metadata.png" alt="Exported BimmerVision video showing four camera views, GPS map, 3D driving visualization, lead distance, speed limit and instrument overlays" width="640"></a>
@@ -45,7 +45,7 @@ Record your drives automatically, review all four cameras simultaneously, and ex
 
 ## Current release
 
-**0.2.78** introduces Google Drive Remote Backup, automatic horn protection, recorded-drive locking in iDrive, and a shared backup manager in the phone player. View your BimmerVision Google Drive backups at [BimmerVision.app](https://bimmervision.app/). Install the app and required recorder together. See [release notes](RELEASE_NOTES.md).
+**0.2.79** adds selectable internal recording storage with a 1–10 GB limit, automatic cleanup of the oldest unlocked clips, and retains Google Drive Remote Backup and horn protection. View your BimmerVision Google Drive backups at [BimmerVision.app](https://bimmervision.app/). Install the app and required recorder together. See [release notes](RELEASE_NOTES.md).
 
 ## Features
 
@@ -55,8 +55,9 @@ Turn your BMW's existing cameras into a full-time, four-channel dashcam.
 
 - **Four-camera recording:** Capture front, rear, left, and right camera views.
 - **Continuous recording:** Automatically capture your drives without manually starting a new recording.
-- **Direct USB storage:** Footage is saved directly to your connected USB drive.
-- **Automatic storage management:** Older recordings are automatically deleted when storage runs low.
+- **USB or internal storage:** Choose a connected USB drive or the MGU's internal `/var/opt` data partition.
+- **Capped internal storage:** Set an internal recording limit from 1 to 10 GB. The default is 4 GB.
+- **Automatic storage management:** When internal storage reaches its limit, BimmerVision removes the oldest unlocked recordings to keep recording. Locked and horn-protected clips remain protected; recording pauses if protected clips alone fill the cap.
 - **Protected recordings:** Lock important clips to prevent automatic deletion.
 - **Persistent recording:** Enable recording once, and BimmerVision remembers your preference for future drives.
 - **Manual control:** Pause and resume recording whenever needed.
@@ -146,7 +147,7 @@ BimmerVision requires:
 - A compatible **BMW equipped with the 360° Surround View camera system**.
 - **iDrive 7 with an MGU head unit**.
 - **MGU Store** installed on the head unit.
-- A writable USB flash drive connected to a supported vehicle USB port.
+- A writable USB flash drive connected to a supported vehicle USB port, or sufficient space on the MGU's persistent internal data partition.
 
 **A standard rear-view camera alone is not sufficient.** BimmerVision requires the multi-camera Surround View system.
 
@@ -180,7 +181,7 @@ BimmerVision is installed directly through **MGU Store**.
 
 ### Start Recording
 
-1. Connect a writable USB flash drive to your BMW.
+1. Connect a writable USB flash drive, or use the internal storage option.
 2. Open **BimmerVision** in iDrive.
 3. Select **Enable recording**.
 
@@ -188,7 +189,7 @@ That's it.
 
 BimmerVision remembers your recording preference, so you won't need to launch the application and manually start recording every time you drive.
 
-Recording automatically resumes on subsequent drives when the required cameras and USB storage are available.
+Recording automatically resumes on subsequent drives when the required cameras and selected recording storage are available. If no USB drive is connected and internal storage is available, BimmerVision can use the internal store.
 
 You can pause recording at any time using the app.
 
@@ -257,27 +258,28 @@ You can also access the [BimmerVision Web Player on GitHub Pages](https://hexpha
 
 ---
 
-## USB Storage Management
+## Recording Storage Management
 
-BimmerVision manages recordings directly on your USB flash drive.
+BimmerVision can record to a USB flash drive or to a capped folder on the MGU's persistent `/var/opt` data partition.
 
-Open **USB storage** in the iDrive application to view:
+Open **Recording storage** in the iDrive application to view:
 
 - Connected USB storage information
 - Used and available storage space
 - Total recording count
 - Number of protected recordings
 - Recording and storage management controls
+- For internal storage, the configured limit and available space
 
-![BimmerVision USB storage management](docs/images/usb-storage.png)
+![BimmerVision recording storage management](docs/images/usb-storage.png)
 
 ### Automatic Recording Cleanup
 
-When the USB drive fills up, BimmerVision automatically removes the oldest **unlocked** recordings to make room for new footage.
+When internal storage reaches its configured limit, BimmerVision automatically removes the oldest **unlocked** recordings to make room for new footage. USB storage continues to use its available capacity.
 
 **Locked recordings are never deleted by automatic cleanup.**
 
-This allows continuous recording without requiring you to manually clear storage after every drive, provided sufficient space remains available.
+This allows continuous recording without requiring you to manually clear internal storage after every drive, provided enough unlocked footage can be removed.
 
 ### Protecting Important Recordings
 
@@ -285,9 +287,9 @@ Recordings can be locked through the connected phone player.
 
 Locked recordings are protected from automatic storage cleanup and the app's bulk erase operation.
 
-To delete unlocked footage, select **Erase all unlocked recordings** in the USB storage menu and confirm the action.
+To delete unlocked footage, select **Erase all unlocked recordings** in the recording storage menu and confirm the action.
 
-Removing or updating BimmerVision does not erase existing recordings stored on your USB drive.
+Removing or updating BimmerVision does not erase existing recordings stored on USB or internal storage.
 
 ### Safely Removing Your USB Drive
 

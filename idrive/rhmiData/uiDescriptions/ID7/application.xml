@@ -23,11 +23,11 @@
         <property id="2" value="1" />
         <property id="3" value="3" />
       </component>
-      <component id="15" type="button" widget="LT_Button_1Row">
+      <component id="7" type="button" widget="LT_Button_1Row">
         <property id="2" value="1" />
         <property id="3" value="3" />
       </component>
-      <component id="7" type="button" widget="LT_Button_1Row">
+      <component id="15" type="button" widget="LT_Button_1Row">
         <property id="2" value="1" />
         <property id="3" value="3" />
       </component>
@@ -274,6 +274,10 @@
         <property id="2" value="1" />
         <property id="3" value="0" />
       </component>
+      <component id="614" type="button" widget="LT_Button_1Row">
+        <property id="2" value="1" />
+        <property id="3" value="3" />
+      </component>
       <component id="611" type="button" widget="LT_Button_1Row">
         <property id="2" value="1" />
         <property id="3" value="3" />
@@ -307,15 +311,15 @@
         <property id="2" value="1" />
         <property id="3" value="3" />
       </component>
-      <component id="715" type="button" widget="LT_Button_1Row">
-        <property id="2" value="1" />
-        <property id="3" value="3" />
-      </component>
       <component id="707" type="button" widget="LT_Button_1Row">
         <property id="2" value="1" />
         <property id="3" value="3" />
       </component>
       <component id="708" type="button" widget="LT_Button_1Row">
+        <property id="2" value="1" />
+        <property id="3" value="3" />
+      </component>
+      <component id="715" type="button" widget="LT_Button_1Row">
         <property id="2" value="1" />
         <property id="3" value="3" />
       </component>

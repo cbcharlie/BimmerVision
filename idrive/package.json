@@ -1,7 +1,7 @@
 {
   "name": "bimmervision",
-  "version": "0.2.78",
-  "description": "The first app to enable continuous recording of BMW\u2019s 360\u00b0 camera system directly to a USB flash drive on iDrive 7. Review, download and export saved recordings on your phone or computer, with recorded vehicle telemetry and horn indicators. Direct capture performs no BMW Drive Recorder subscription check; a car without an entitlement has not yet been physically tested. Requires iDrive 7 MGU and 360\u00b0 Surround View.",
+  "version": "0.2.79",
+  "description": "Continuous recording from BMW\u2019s 360\u00b0 camera system to USB or capped MGU internal storage on iDrive 7. Review, download and export saved recordings with vehicle telemetry and horn protection. Internal recording storage is configurable from 1 to 10 GB. Requires iDrive 7 MGU and 360\u00b0 Surround View.",
   "main": "src/app.js",
   "license": "MIT",
   "engines": {

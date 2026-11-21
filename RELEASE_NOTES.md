@@ -21,3 +21,16 @@ You are responsible for your Google account and Google Drive storage limits. Ful
 Install **app and recorder 0.2.78 together** through MGU Store. Existing recording preferences are preserved. Recorded-drive timestamps use explicitly labeled UTC unless a local display timezone is configured.
 
 Validation: 482 car tests and 285 website tests pass. Homepage layouts were checked at 320, 390 and 1280 pixels. The preceding 0.2.77 build’s phone upload, progress and return flow was confirmed on the test vehicle; the additional fresh-account setup fix and release provisioning were checked locally. This publication does not install 0.2.78 on the test vehicle.
+# BimmerVision 0.2.79 — Internal recording storage
+
+BimmerVision can now record to either a writable USB drive or the MGU's persistent internal data partition. When no USB drive is connected, the internal store is selected automatically when available.
+
+- **Choose an internal storage limit:** set a 1–10 GB cap in **About**; new installs start at 4 GB.
+- **Keep recording as the cap fills:** the recorder removes the oldest eligible unlocked recordings as it needs room. Locked clips, horn-protected clips, active clips and clips required for playback remain protected. If protected recordings fill the cap, the recorder stops and reports that internal storage is full.
+- **Manage both destinations:** the Recording storage screen shows internal storage alongside connected USB drives. Playback, locking, phone transfer and Remote Backup use the same recording library.
+
+Install **app and recorder 0.2.79 together** through MGU Store. Internal recording storage uses a dedicated folder under `/var/opt/bimmervision-recorder` and is limited to the configured cap.
+
+Validation: package generation and static source checks only; no real-car recording session has been performed for this feature.
+
+# BimmerVision 0.2.78 — Remote Backup and horn protection

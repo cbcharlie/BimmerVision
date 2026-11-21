@@ -14,7 +14,7 @@ async function readManifest(root,id,partial){var dir=path.join(root,id+(partial?
  if(m.id!==id||m.schemaVersion!==1||m.format!=='bvr1')throw Error('Invalid recording manifest');return m;}
 function Library(root,options){options=options||{};this.root=path.resolve(root);this.guard=options.guard;this.activeId=options.activeId||function(){return null;};this.readers={};this.serial=Promise.resolve();this.mutating=false;this.summaryCache=new Map();this.summaryRevision=0;this.overviews=new (require('./recording-overview'))({cacheDir:options.cacheDir});}
 Library.prototype.invalidateSummary=function(){this.summaryRevision++;this.summaryCache.clear();};
-Library.prototype.check=async function(){try{if(!this.guard||typeof this.guard.check!=='function')throw Error('USB guard required');await this.guard.check();await io.safePath(this.root,'directory');}catch(e){this.overviews.cancel();throw error(503,e.message);}};
+Library.prototype.check=async function(){try{if(!this.guard||typeof this.guard.check!=='function')throw Error('Storage guard required');await this.guard.check();await io.safePath(this.root,'directory');}catch(e){this.overviews.cancel();throw error(503,e.message);}};
 Library.prototype.id=function(id){if(typeof id!=='string'||!UUID.test(id))throw error(400,'Invalid recording UUID');return id;};
 Library.prototype.manifest=async function(id){this.id(id);return readManifest(this.root,id,false);};
 Library.prototype.assertNoDependencies=async function(id){

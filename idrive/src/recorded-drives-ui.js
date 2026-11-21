@@ -215,13 +215,13 @@ RecordedDrivesUI.prototype.render = async function () {
     this.cache["DRIVES_LOCK.selected"] = checked;
   }
   var status = !v.desk.drive
-    ? "Connect a USB drive"
+    ? "Select recording storage"
     : !v.current
       ? "Loading recorded drives…"
       : data.busy || this.pendingId
         ? "Updating recorded drives…"
         : data.message ||
-          (!drives.length && "No completed drives on this USB drive") ||
+          (!drives.length && "No completed drives in this storage") ||
           "Newest drives first · " + data.total + " drives";
   if (selected)
     status +=
