@@ -6,6 +6,14 @@ async function filesFor(library,id){var files=await library.bundle(id),out=[];fo
 async function digest(file,guard){var fd=null,hash=crypto.createHash('sha256'),size=0;try{await guard.check();fd=await io.open(file,fs.constants.O_RDONLY|(fs.constants.O_NOFOLLOW||0));var st=await io.fstat(fd);if(!st.isFile())throw Error('Expected regular recording file');var b=Buffer.alloc(CHUNK);while(size<st.size){await guard.check(fd);var r=await io.read(fd,b,0,Math.min(b.length,st.size-size),size),n=typeof r==='number'?r:r.bytesRead;if(!n)throw Error('Recording file changed while reading');hash.update(b.slice(0,n));size+=n;}return {size:size,sha256:hash.digest('hex')};}finally{if(fd!==null)await io.close(fd);}}
 async function sameRecording(source,target,sourceFiles,targetLibrary,id,sourceManifest){var targetManifest;try{targetManifest=await targetLibrary.manifest(id);}catch(e){return false;}if(targetManifest.sessionId!==sourceManifest.sessionId||targetManifest.sequence!==sourceManifest.sequence||targetManifest.bytes!==sourceManifest.bytes)return false;var left=Object.assign({},sourceManifest),right=Object.assign({},targetManifest);['locked','hornLockRevision','hornLockDependency'].forEach(function(k){delete left[k];delete right[k];});if(JSON.stringify(left)!==JSON.stringify(right))return false;var targetFiles;try{targetFiles=await filesFor(targetLibrary,id);}catch(e){return false;}if(sourceFiles.length!==targetFiles.length)return false;for(var i=0;i<sourceFiles.length;i++){var a=sourceFiles[i],b=targetFiles.filter(function(x){return x.name===a.name;})[0];if(!b||a.size!==b.size)return false;if(a.name==='manifest.json')continue;var x=await digest(a.path,source.guard),y=await digest(b.path,target.guard);if(x.sha256!==y.sha256)return false;}return true;}
 function chronological(a,b){var at=Date.parse(a.startedAt),bt=Date.parse(b.startedAt);if(!isFinite(at))at=0;if(!isFinite(bt))bt=0;return at-bt||(a.sequence||0)-(b.sequence||0)||a.id.localeCompare(b.id);}
+async function cleanupTemps(target){
+ var names=await io.readdir(target.root);
+ for(var i=0;i<names.length;i++){
+  if(names[i].indexOf('.bimmervision-copy-')!==0)continue;
+  if(!/^\.bimmervision-copy-[a-f0-9-]{36}-[a-f0-9]{16}$/.test(names[i]))throw Error('Unexpected temporary copy entry');
+  await removeTemp(path.join(target.root,names[i]),target.guard);
+ }
+}
 async function inspect(source,target,options){
  options=options||{};if(!source||!target||source.mount===target.mount)throw failure('EINVAL','Choose two different recording locations');await source.guard.check();await target.guard.check();await cleanupTemps(target);
  var allManifests=await source.library.lock(function(){return source.library.backupManifests();});if(allManifests.length>10000)throw Error('This library has too many recordings to copy in one operation');var manifests=allManifests;
