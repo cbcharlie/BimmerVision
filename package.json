@@ -1,7 +1,7 @@
 {
   "name": "bimmervision-release",
   "private": true,
-  "version": "0.2.78",
+  "version": "0.2.79",
   "scripts": {
     "test": "node --test tests/*.test.js",
     "build": "node scripts/build-release.js",

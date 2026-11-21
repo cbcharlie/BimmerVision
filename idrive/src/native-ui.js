@@ -42,13 +42,21 @@ function UI(o) {
   this.nowMs = o.nowMs || Date.now;
   this.deleteNoticeId = null;
   this.deleteNoticeVolumeToken = null;
+  this.copySource = null;
+  this.copyDestination = null;
+  this.copySourcePage = 0;
+  this.copyTargetPage = 0;
+  this.copyPreviewId = null;
+  this.copyJobId = null;
+  this.copyGroup = null;
 }
 UI.prototype.clearDeleteNotice = function () {
   this.deleteNoticeId = null;
   this.deleteNoticeVolumeToken = null;
 };
 UI.prototype.component = function (n) {
-  if ((this.page === "usb" || this.page === "delete-confirm") && /^HOME_/.test(n))
+  if(n==="ABOUT_LIMIT")return this.rhmi.getByName(n);
+  if (["usb", "delete-confirm", "storage-actions", "copy-source", "copy-target", "copy-confirm", "copy-running", "copy-result"].indexOf(this.page)>=0 && /^HOME_/.test(n))
     return this.rhmi.getByName("USB_" + n.slice(5));
   if ((this.page === "connect" || this.page === "settings") && /^HOME_/.test(n)) {
     var aliases = { HOME_STATUS: "STATUS", HOME_TITLE: "TITLE", HOME_AUTO: "BACK" };
@@ -108,6 +116,14 @@ UI.prototype.initialize = async function () {
         self.back().catch(self.report);
     });
   });
+  self.listen(self.component("ABOUT_LIMIT"),"action",function(){
+    if(self.nativePage!=="ABOUT"||!self.visible)return;
+    var preference=require("./recording-preference"),current=self.intent().internalStorageLimitBytes||self.desk().internalStorageLimitBytes||preference.DEFAULT_INTERNAL_LIMIT,
+      next=current>=preference.MAX_INTERNAL_LIMIT?1000000000:current+1000000000;
+    self.update({internalStorageLimitBytes:next});
+    self.message="";
+    self.render().catch(self.report);
+  });
   ["CONNECT_PHONE", "ABOUT"].forEach(function (name) {
     self.listen(self.component(name), "visible", function (e) {
       if (self.nativePage !== name || !e) return;
@@ -119,7 +135,7 @@ UI.prototype.initialize = async function () {
   ROWS.forEach(function (row) {
     self.listen(self.component("USB_" + row.slice(5)), "action", function () {
       if (self.nativePage !== "USB_STORAGE" || self.recordedDrivesUI.active || !self.visible) return;
-      Promise.resolve(row === "HOME_AUTO" ? self.back() : self.press(row, true)).catch(self.report);
+      Promise.resolve(row === "HOME_AUTO" && ["storage-actions", "copy-source", "copy-target", "copy-confirm", "copy-running", "copy-result"].indexOf(self.page)<0 ? self.back() : self.press(row, true)).catch(self.report);
     });
     self.listen(self.component(row), "action", function () {
       Promise.resolve(
@@ -233,16 +249,47 @@ UI.prototype.press = async function (row, nativeUsb) {
   if (this.closed || !this.visible || this.nativePage && !(this.nativePage === "USB_STORAGE" && nativeUsb) || (this.backupUI && this.backupUI.active || this.recordedDrivesUI && this.recordedDrivesUI.active)) return;
   var desk = this.desk(),
     intent = this.intent();
-  if (desk.setupPending && (this.page === "home" && ["HOME_ALL", "HOME_LEFT"].indexOf(row) >= 0 || this.page === "usb" && row === "HOME_DELETE" || this.page === "delete-confirm" && row === "HOME_ALL")) {
+  if (desk.setupPending && (this.page === "home" && ["HOME_ALL", "HOME_LEFT"].indexOf(row) >= 0 || this.page === "usb" && ["HOME_DELETE","HOME_REMOTE"].indexOf(row)>=0 || this.page === "storage-actions" || this.page === "copy-source" || this.page === "copy-target" || this.page === "copy-confirm" || this.page === "copy-running" || this.page === "delete-confirm" && row === "HOME_ALL")) {
     this.message = desk.state || "Recorder setup pending";
     await this.render();
     return;
   }
   if(this.page==="welcome"){if(row==="HOME_ALL"){try{this.onboarding.acknowledge();}catch(e){this.report(e);}this.noticeHandled=true;this.page="home";await this.render();}return;}
-  if (this.page === "home") {
+  var storageRows=["HOME_ALL","HOME_FRONT","HOME_REAR","HOME_LEFT"];
+  if(this.page==="storage-actions"){
+    var activeStorageCopy=desk.storageCopy&&["checking","preparing","copying"].indexOf(desk.storageCopy.phase)>=0;
+    if(activeStorageCopy&&row==="HOME_ALL"){this.page="copy-running";this.message="";}
+    else if(activeStorageCopy){this.message="A storage copy is already running. Cancel it or wait for it to finish.";}
+    else if(row==="HOME_ALL"){this.copySource=null;this.copyDestination=null;this.copyGroup=null;this.copySourcePage=0;this.page="copy-source";this.message="";}
+    else if(row==="HOME_FRONT"&&desk.drive){this.clearDeleteNotice();this.deleteVolume=desk.drive.mount;this.deleteVolumeToken=desk.volumeToken;this.page="delete-confirm";this.message="";}
+    else if(row==="HOME_REMOTE"&&desk.drive){this.revoke();await this.recordedDrivesUI.open();return;}
+    else if(row==="HOME_AUTO"){this.page="usb";this.message="";}
+  }else if(this.page==="copy-source"){
+    var sourceDrives=desk.drives||[],sourceIndex=storageRows.indexOf(row),sourceOffset=this.copySourcePage*4;
+    if(sourceIndex>=0&&sourceDrives[sourceOffset+sourceIndex]){this.copySource=sourceDrives[sourceOffset+sourceIndex].mount;this.copyTargetPage=0;this.page="copy-target";this.message="";}
+    else if(row==="HOME_RIGHT")this.copySourcePage=(this.copySourcePage+1)%Math.max(1,Math.ceil(sourceDrives.length/4));
+    else if(row==="HOME_AUTO"){this.page="storage-actions";this.message="";}
+  }else if(this.page==="copy-target"){
+    var targetDrives=(desk.drives||[]).filter(function(d){return d.mount!==this.copySource;},this),targetIndex=storageRows.indexOf(row),targetOffset=this.copyTargetPage*4;
+    if(targetIndex>=0&&targetDrives[targetOffset+targetIndex]){this.copyDestination=targetDrives[targetOffset+targetIndex].mount;this.copyPreviewId=crypto.randomBytes(16).toString("hex");this.page="copy-confirm";this.message="";var previewCommand={id:this.copyPreviewId,action:"preview",source:this.copySource,destination:this.copyDestination};if(this.copyGroup){previewCommand.groupId=this.copyGroup.id;previewCommand.membership=this.copyGroup.membership;}this.update({storageCopyCommand:previewCommand});}
+    else if(row==="HOME_RIGHT")this.copyTargetPage=(this.copyTargetPage+1)%Math.max(1,Math.ceil(targetDrives.length/4));
+    else if(row==="HOME_AUTO"){this.page=this.copyGroup?"usb":"copy-source";this.message="";}
+  }else if(this.page==="copy-confirm"){
+    var preview=desk.storageCopy||{};
+    if(row==="HOME_ALL"&&preview.id===this.copyPreviewId&&preview.phase==="ready"&&preview.canFit){this.copyJobId=crypto.randomBytes(16).toString("hex");this.page="copy-running";var startCommand={id:this.copyJobId,action:"start",previewId:this.copyPreviewId,source:this.copySource,destination:this.copyDestination,allowRetention:preview.requiresRetention===true};if(this.copyGroup){startCommand.groupId=this.copyGroup.id;startCommand.membership=this.copyGroup.membership;}this.update({storageCopyCommand:startCommand});}
+    else if(row==="HOME_FRONT"){this.page="copy-target";this.message="";}
+    else if(row==="HOME_AUTO"){this.page="copy-target";this.message="";}
+  }else if(this.page==="copy-running"){
+    if(row==="HOME_FRONT"||row==="HOME_ALL"){var activeCopy=desk.storageCopy||{};if(activeCopy.phase==="copying")this.update({storageCopyCommand:{id:crypto.randomBytes(16).toString("hex"),action:"cancel",targetId:this.copyJobId}});else this.message="Preparing the destination. You can cancel once copying starts.";}
+    else if(row==="HOME_AUTO"){this.page="usb";this.message="";}
+  }else if(this.page==="copy-result"){
+    if(row==="HOME_ALL"){this.copySource=null;this.copyDestination=null;this.copyGroup=null;this.copySourcePage=0;this.page="copy-source";}
+    else if(row==="HOME_FRONT"){this.page="usb";this.message="";}
+    else if(row==="HOME_AUTO"){this.page="storage-actions";this.message="";}
+  }else if (this.page === "home") {
     if (row === "HOME_ALL") {
       if (!desk.drive)
-        this.message = "Connect a writable USB drive before recording.";
+        this.message = "Select recording storage before recording.";
       else {
         this.message = "";
         this.update({ continuous: intent.continuous !== true });
@@ -253,7 +300,7 @@ UI.prototype.press = async function (row, nativeUsb) {
       this.drivePage = 0;
       await this.openNativePage("usb", "USB_STORAGE");
     } else if (row === "HOME_LEFT") {
-      if(!desk.drive){this.message="Connect a writable USB drive first.";await this.render();return;}
+      if(!desk.drive){this.message="Select recording storage first.";await this.render();return;}
       this.revoke();
       this.visit = crypto.randomBytes(16).toString("hex");
       await this.openNativePage("connect", "CONNECT_PHONE");
@@ -263,12 +310,12 @@ UI.prototype.press = async function (row, nativeUsb) {
     else if (row === "HOME_RIGHT") {this.message="";await this.openNativePage("settings", "ABOUT");}
   } else if (this.page === "delete-confirm") {
     if(row === "HOME_ALL"){
-      if(!desk.drive||desk.drive.mount!==this.deleteVolume){this.message="The selected USB drive changed. Nothing deleted.";this.page="usb";}
+      if(!desk.drive||desk.drive.mount!==this.deleteVolume){this.message="The selected recording storage changed. Nothing deleted.";this.page="usb";}
       else {this.revoke();var deleteId=crypto.randomBytes(16).toString('hex');this.deleteNoticeId=deleteId;this.deleteNoticeVolumeToken=this.deleteVolumeToken;this.update({continuous:false,deleteAll:{id:deleteId,volume:this.deleteVolume,volumeToken:this.deleteVolumeToken,confirmed:true}});this.message="";this.page="usb";}
     }else if(row === "HOME_FRONT"){this.page="usb";this.message="";}
   } else if (this.page === "usb") {
     if(row === "HOME_REMOTE" && desk.drive){this.revoke();await this.recordedDrivesUI.open();return;}
-    if(row === "HOME_DELETE" && desk.drive){this.clearDeleteNotice();this.deleteVolume=desk.drive.mount;this.deleteVolumeToken=desk.volumeToken;this.page="delete-confirm";this.message="";await this.render();return;}
+    if(row === "HOME_DELETE" && (desk.drives||[]).length){this.page=desk.storageCopy&&["checking","preparing","copying"].indexOf(desk.storageCopy.phase)>=0?"copy-running":"storage-actions";this.message="";await this.render();return;}
     var i = ["HOME_ALL", "HOME_FRONT", "HOME_REAR", "HOME_LEFT"].indexOf(row),
       drives = desk.drives || [];
     if (i >= 0 && drives[this.drivePage * 4 + i]) {
@@ -317,6 +364,11 @@ UI.prototype.openNativePage = async function (page, state) {
     throw e;
   }
 };
+UI.prototype.beginCopyFromDrive = async function (group) {
+  var desk=this.desk();if(!desk.drive||!group||!group.id||!group.membership)throw new Error("Select a completed recording group first.");
+  this.copySource=desk.drive.mount;this.copyGroup={id:group.id,membership:group.membership,startedAt:group.startedAt,totalClips:group.totalClips,bytes:group.bytes};this.copyDestination=null;this.copyTargetPage=0;this.recordedDrivesUI.active=false;
+  await this.openNativePage("usb","USB_STORAGE");this.page="copy-target";this.cache={};await this.render();
+};
 function bytes(n) {
   if (typeof n !== "number" || !isFinite(n)) return "Unknown";
   if (n < 1024) return n + " B";
@@ -351,6 +403,9 @@ UI.prototype.renderPage = async function () {
     drive = desk.drive,
     labels = { HOME_TITLE: "BimmerVision" },
     transfer = desk.transfer || {};
+  var copyPhase=desk.storageCopy&&desk.storageCopy.phase;
+  if(this.page==="copy-running"&&desk.storageCopy&&desk.storageCopy.id===this.copyPreviewId&&copyPhase==="ready"){this.copyJobId=null;this.page="copy-confirm";this.cache={};}
+  else if(this.page==="copy-running"&&desk.storageCopy&&desk.storageCopy.id===this.copyJobId&&["complete","error","cancelled"].indexOf(copyPhase)>=0){this.page="copy-result";this.cache={};}
   var deletionNotice="";
   if(this.page==="usb" && this.deleteNoticeId && desk.volumeToken===this.deleteNoticeVolumeToken) {
     var result=desk.deleteResult;
@@ -361,12 +416,12 @@ UI.prototype.renderPage = async function () {
     finishing = !desk.deleting && (desk.finalizing === true || desk.state === "Saving last video" ||
       !enabled && (desk.activeId || desk.writeInProgress === true && desk.finalizing === undefined || desk.state === "Recording")),
     videoWriting = finishing || desk.finalizing === true || desk.activeId || desk.state === "Recording" || desk.state === "Saving last video",
-    writingMessage = "Do not disconnect - " + (videoWriting ? "Saving last video" : "Writing to USB"),
+    writingMessage = "Do not disconnect - " + (videoWriting ? "Saving last video" : "Writing to storage"),
     recordingState = finishing ? "Saving last video" :
       ((desk.state === "Recording" || desk.activeId) ? "Recording" : (desk.state || "Recorder unavailable"));
   if(this.visible && enabled && !finishing && desk.state==="Recording" && desk.activeId && !desk.error && !desk.deleting) labels.HOME_TITLE="BimmerVision   "+(Math.floor(this.nowMs()/500)%2?"○":"●")+" REC";
   if(this.page === "connect" && !drive){
-    this.revoke();this.page="home";this.message="USB disconnected. Connect Phone unavailable.";
+    this.revoke();this.page="home";this.message="Recording storage unavailable. Connect Phone unavailable.";
     if(this.nativePage){this.nativePage=null;this.cache={};await this.rhmi.openState("HOME");}
   }
   if(this.page==="welcome"){labels.HOME_STATUS=require("./first-run-notice").message;labels.HOME_ALL="Understood";labels.HOME_AUTO="Back";}
@@ -375,39 +430,39 @@ UI.prototype.renderPage = async function () {
       recordingState + (drive && typeof desk.recordingCount === "number" ? " · " + desk.recordingCount + " recordings" : "") +
       "\n" +
       (drive
-        ? (drive.name || drive.mount || "USB") +
+        ? (drive.internal ? "Internal storage" : (drive.name || drive.mount || "USB")) +
           " · " +
           bytes(drive.used) +
           " used · " +
           bytes(drive.free) +
-          " free / " +
+          (drive.internal ? " available / " : " free / ") +
           bytes(drive.total) +
-          ""
+          (drive.internal ? " limit" : "")
         : desk.drives && desk.drives.length
-          ? "Select a USB drive to record"
-          : "No writable USB drive detected\nConnect a USB drive") +
-      (drive ? "\n" + (desk.deleting ? "Do not disconnect - Deleting recordings" : (desk.writeInProgress===true || desk.writeInProgress===undefined && videoWriting) ? writingMessage : desk.safeToRemove===false || desk.error ? "USB error - Safe removal not confirmed" : "Safe to Remove") : "") +
+          ? "Select recording storage"
+          : "No writable recording storage detected") +
+      (drive ? "\n" + (desk.deleting ? "Do not disconnect - Deleting recordings" : (desk.writeInProgress===true || desk.writeInProgress===undefined && videoWriting) ? writingMessage : drive.internal ? "Internal storage · Retention enabled" : desk.safeToRemove===false || desk.error ? "USB error - Safe removal not confirmed" : "Safe to Remove") : "") +
       "";
     labels.HOME_ALL = drive
       ? enabled
         ? "Pause recording"
         : "Enable recording"
       : "Enable recording";
-    labels.HOME_REAR = "USB storage";
+    labels.HOME_REAR = "Recording storage";
     labels.HOME_REMOTE = "Remote Backup";
     labels.HOME_LEFT = "Connect Phone";
     labels.HOME_RIGHT = "About";
   } else if (this.page === "delete-confirm") {
-    labels.HOME_STATUS="Erase all unlocked recordings?\n"+(drive ? drive.name||drive.mount : "USB disconnected")+" · "+(desk.lockedRecordingCount==null?"Locked count unavailable":desk.lockedRecordingCount+" locked")+"\nLocked recordings are kept. This cannot be undone.";
+    labels.HOME_STATUS="Erase all unlocked recordings?\n"+(drive ? drive.internal?"Internal storage":drive.name||drive.mount : "Recording storage disconnected")+" · "+(desk.lockedRecordingCount==null?"Locked count unavailable":desk.lockedRecordingCount+" locked")+"\nLocked recordings are kept. This cannot be undone.";
     labels.HOME_ALL="Erase unlocked recordings";labels.HOME_FRONT="Cancel";labels.HOME_AUTO="Back";
   } else if (this.page === "usb") {
     labels.HOME_STATUS =
-      "USB storage\n" +
+      "Recording storage\n" +
       (drive
-        ? (drive.name || drive.mount) +
+        ? (drive.internal ? "Internal storage" : (drive.name || drive.mount)) +
           " · " +
           bytes(drive.free) +
-          " free / " +
+          (drive.internal ? " available / " : " free / ") +
           bytes(drive.total)
         : "Select a drive for recordings");
     var drives = desk.drives || [],
@@ -416,22 +471,46 @@ UI.prototype.renderPage = async function () {
       var d = drives[this.drivePage * 4 + n];
       if (d)
         labels[rows[n]] =
-          (d.mount === intent.volume ? "Selected · " : "") +
-          (d.name || d.mount) +
+          (desk.drive && d.mount === desk.drive.mount ? "Selected · " : "") +
+          (d.internal ? "Internal storage" : (d.name || d.mount)) +
           " · " +
           bytes(d.free) +
-          " free";
+          (d.internal ? " available" : " free");
     }
     if (!drives.length)
       labels.HOME_STATUS +=
-        "\nNo writable USB drive detected\nConnect a USB drive";
+        "\nNo writable recording storage detected";
     if(drive) labels.HOME_REMOTE="Recorded Drives";
-    if(drive) labels.HOME_DELETE="Erase all unlocked recordings…";
-    if(drive) labels.HOME_STATUS+="\n"+(desk.recordingCount==null?"":desk.recordingCount+" recordings · ")+(desk.lockedRecordingCount==null?"Locked count unavailable · ":desk.lockedRecordingCount+" locked · ")+(desk.deleting?"Do not disconnect - Deleting recordings":desk.writeInProgress?writingMessage:desk.safeToRemove===false||desk.error?"USB error - Safe removal not confirmed":"Safe to Remove");
+    if(drives.length) labels.HOME_DELETE=copyPhase&&["checking","preparing","copying"].indexOf(copyPhase)>=0?"Copy progress…":"Copy / erase recordings…";
+    if(drive) labels.HOME_STATUS+="\n"+(desk.recordingCount==null?"":desk.recordingCount+" recordings · ")+(desk.lockedRecordingCount==null?"Locked count unavailable · ":desk.lockedRecordingCount+" locked · ")+(desk.deleting?"Do not disconnect - Deleting recordings":desk.writeInProgress?writingMessage:drive.internal?"Internal storage · Retention enabled":desk.safeToRemove===false||desk.error?"USB error - Safe removal not confirmed":"Safe to Remove");
     if (drives.length > 4) labels.HOME_RIGHT = "Next drives";
     labels.HOME_AUTO = "Back";
+  } else if(this.page==="storage-actions") {
+    var actionsBusy=copyPhase&&["checking","preparing","copying"].indexOf(copyPhase)>=0;
+    labels.HOME_STATUS="Manage recording libraries\nCopy finished recordings between Internal Storage and USB. Copies keep their lock and horn protection.";
+    labels.HOME_ALL=actionsBusy?"Copy progress…":"Copy recordings…";labels.HOME_FRONT=drive&&!actionsBusy?"Erase unlocked recordings…":undefined;labels.HOME_REMOTE=drive&&!actionsBusy?"Recorded Drives":undefined;labels.HOME_AUTO="Back";
+  } else if(this.page==="copy-source"||this.page==="copy-target") {
+    var copyList=(desk.drives||[]).filter(function(d){return this.page!=="copy-target"||d.mount!==this.copySource;},this),copyPage=this.page==="copy-source"?this.copySourcePage:this.copyTargetPage;
+    labels.HOME_STATUS=this.page==="copy-source"?"Copy recordings\nChoose source storage. Finished clips are copied; originals stay in place.":this.copyGroup?"Copy selected drive · "+this.copyGroup.totalClips+" clips\nChoose a destination for "+(this.copySource==="internal"?"Internal Storage":((desk.drives||[]).filter(function(d){return d.mount===this.copySource;},this)[0]||{}).name||this.copySource)+".":"Copy recordings\nChoose a destination for "+(this.copySource==="internal"?"Internal Storage":((desk.drives||[]).filter(function(d){return d.mount===this.copySource;},this)[0]||{}).name||this.copySource)+".";
+    for(var ci=0;ci<4;ci++){var cd=copyList[copyPage*4+ci],cr=["HOME_ALL","HOME_FRONT","HOME_REAR","HOME_LEFT"][ci];if(cd)labels[cr]=(this.page==="copy-source"?"Source · ":"Copy to · ")+(cd.internal?"Internal storage":cd.name||cd.mount)+" · "+bytes(cd.free)+(cd.internal?" available":" free");}
+    if(copyList.length>4)labels.HOME_RIGHT="Next locations";labels.HOME_AUTO="Back";
+  } else if(this.page==="copy-confirm") {
+    var copyPreview=desk.storageCopy||{},hasPreview=copyPreview.id===this.copyPreviewId&&["ready","cannot-fit"].indexOf(copyPreview.phase)>=0,readyPreview=hasPreview&&copyPreview.phase==="ready";
+    var sourceName=this.copySource==="internal"?"Internal storage":((desk.drives||[]).filter(function(d){return d.mount===this.copySource;},this)[0]||{}).name||this.copySource,destinationName=this.copyDestination==="internal"?"Internal storage":((desk.drives||[]).filter(function(d){return d.mount===this.copyDestination;},this)[0]||{}).name||this.copyDestination;
+    labels.HOME_STATUS="Copy recordings\n"+sourceName+" → "+destinationName+"\n"+(hasPreview?copyPreview.recordingsToCopy+" new · "+bytes(copyPreview.totalBytes):copyPreview.message||"Checking both storage locations…");
+    if(hasPreview){if(copyPreview.alreadyPresent)labels.HOME_STATUS+=" · "+copyPreview.alreadyPresent+" already there";if(copyPreview.dependencyRecordings)labels.HOME_STATUS+="\nIncludes "+copyPreview.dependencyRecordings+" earlier clips needed for playback.";if(this.copyDestination==="internal")labels.HOME_STATUS+="\n"+(copyPreview.requiresRetention?"May remove up to "+copyPreview.willRemoveCount+" oldest unlocked clips; protected stay safe.":"No cleanup needed; originals stay safe.");else labels.HOME_STATUS+="\nOriginals stay on source.";if(!copyPreview.canFit)labels.HOME_STATUS+="\nNot enough safe destination space.";}
+    labels.HOME_ALL="Copy and keep originals";labels.HOME_FRONT="Cancel";labels.HOME_AUTO="Back";
+  } else if(this.page==="copy-running") {
+    var runningCopy=desk.storageCopy||{},copyProgress=runningCopy.recordingsTotal?runningCopy.recordingsDone+" of "+runningCopy.recordingsTotal+" recordings":"Preparing copy";
+    labels.HOME_STATUS=(runningCopy.phase==="copying"?"Copying recordings\n":"Preparing copy\n")+copyProgress+(runningCopy.bytesTotal?" · "+bytes(runningCopy.bytesDone||0)+" of "+bytes(runningCopy.bytesTotal):"")+"\nOriginal recordings stay in place.";
+    labels.HOME_FRONT=runningCopy.phase==="copying"?"Cancel copy":"Preparing…";labels.HOME_AUTO="Back to storage";
+  } else if(this.page==="copy-result") {
+    var copyResult=desk.storageCopy||{};labels.HOME_STATUS=(copyResult.phase==="complete"?"Copy complete\n":"Copy stopped\n")+(copyResult.message||"Original recordings stay in place.")+(copyResult.recordingsDone!=null?"\n"+copyResult.recordingsDone+" recordings copied":"");
+    labels.HOME_ALL="Copy more recordings";labels.HOME_FRONT="Recording storage";labels.HOME_AUTO="Back";
   } else if(this.page==="settings") {
-    labels.HOME_STATUS="BimmerVision "+require('../package.json').version+" · GitHub: Hexphase/BimmerVision\nComputer: Visit BimmerVision.App and connect your USB drive to view footage.\nPhone: Connect Phone on the previous page connects directly to your car.";
+    var limit=intent.internalStorageLimitBytes||desk.internalStorageLimitBytes||require("./recording-preference").DEFAULT_INTERNAL_LIMIT;
+    labels.HOME_STATUS="BimmerVision "+require('../package.json').version+" · GitHub: Hexphase/BimmerVision\nBimmerVision.App · Connect Phone opens the local viewer.\nInternal storage removes oldest unlocked clips to stay within its limit.";
+    labels.ABOUT_LIMIT="Internal limit: "+(limit/1000000000)+" GB · Change";
     labels.HOME_AUTO="Back";
   } else {
     labels.HOME_STATUS = "Connect Phone" +
@@ -443,7 +522,7 @@ UI.prototype.renderPage = async function () {
   if(this.page==="home"&&desk.backup&&desk.backup.autoUpload&&desk.backup.storageFull)labels.HOME_BACKUP_WARNING="REMOTE BACKUP PAUSED -  REMOTE STORAGE FULL";
   var notice=this.message||desk.storageWarning||desk.error||deletionNotice;
   if(notice){if(this.page==="home"||this.page==="usb")labels.HOME_STATUS=notice+(this.page==="home"&&drive&&typeof desk.recordingCount==="number"?" · "+desk.recordingCount+" recordings":"")+labels.HOME_STATUS.slice(labels.HOME_STATUS.indexOf("\n"));else labels.HOME_STATUS+="\n"+notice;}
-  var all = ["HOME_STATUS", "HOME_TITLE", "HOME_QR", "HOME_BACKUP_WARNING"].concat(ROWS);
+  var all = ["HOME_STATUS", "HOME_TITLE", "HOME_QR", "HOME_BACKUP_WARNING", "ABOUT_LIMIT"].concat(ROWS);
   for (var j = 0; j < all.length; j++) {
     var name = all[j],
       c = this.component(name),
@@ -451,10 +530,11 @@ UI.prototype.renderPage = async function () {
     if (c && c.setVisible) await c.setVisible(value !== undefined);
     if (value !== undefined) await this.text(name, value);
     if (name === "HOME_ALL" && c && c.setEnabled)
-      await c.setEnabled(this.page !== "home" || !!drive);
-    if(name === "HOME_FRONT" && c && c.setEnabled) await c.setEnabled(true);
+      await c.setEnabled(this.page === "copy-confirm" ? !!(desk.storageCopy&&desk.storageCopy.id===this.copyPreviewId&&desk.storageCopy.phase==="ready"&&desk.storageCopy.canFit) : this.page !== "home" || !!drive);
+    if(name === "HOME_FRONT" && c && c.setEnabled) await c.setEnabled(this.page==="copy-running"?copyPhase==="copying":this.page==="storage-actions"?!(copyPhase&&["checking","preparing","copying"].indexOf(copyPhase)>=0):true);
     if(name === "HOME_LEFT" && c && c.setEnabled) await c.setEnabled(this.page !== "home" || !!drive);
-    if(name === "HOME_DELETE" && c && c.setEnabled) await c.setEnabled(!!drive && !desk.deleting);
+    if(name === "HOME_DELETE" && c && c.setEnabled) await c.setEnabled(!!(desk.drives||[]).length && !desk.deleting);
+    if(name === "ABOUT_LIMIT" && c && c.setEnabled) await c.setEnabled(this.page === "settings");
     if (name === "HOME_QR" && c && c.setVisible)
       await c.setVisible(this.page === "connect" && transfer.on === true && !!transfer.url && this.nativeQr === true);
   }

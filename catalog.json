@@ -5,28 +5,28 @@
       "id": "bimmervision",
       "kind": "app",
       "title": "BimmerVision",
-      "version": "0.2.78",
-      "description": "Continuous four-camera USB recording for iDrive 7 MGU with Surround View. Includes Google Drive Remote Backup over Wi-Fi, horn-triggered clip protection, and phone/computer playback with recorded telemetry. Back up selected recordings using your phone’s internet and view your saved BimmerVision backups at bimmervision.app. Direct capture performs no BMW Drive Recorder subscription check; a car without an entitlement has not yet been physically tested.",
+      "version": "0.2.79",
+      "description": "Continuous four-camera recording to USB or capped MGU internal storage for iDrive 7 with Surround View. Configure internal storage from 1 to 10 GB with automatic removal of the oldest unlocked clips. Includes Google Drive Remote Backup, horn protection, and phone/computer playback with vehicle telemetry.",
       "mguHmi": [
         "ID7"
       ],
       "requires": {
-        "bimmervision-recorder": "0.2.78"
+        "bimmervision-recorder": "0.2.79"
       },
       "artifact": {
-        "name": "bimmervision@0.2.78.tgz",
-        "size": 77544,
-        "sha256": "5bbe9f64203438249f850ec57556cf854b78eb3ecbe6e2a36d2c9db5b2bd175d",
-        "url": "https://github.com/Hexphase/BimmerVision/releases/download/v0.2.78/bimmervision@0.2.78.tgz"
+        "name": "bimmervision@0.2.79.tgz",
+        "size": 81338,
+        "sha256": "d11106a4993adf47c478689d740761b601e2185926dfaf28aa14e8e8b4724f1a",
+        "url": "https://raw.githubusercontent.com/cbcharlie/BimmerVision/main/bimmervision@0.2.79.tgz"
       },
-      "icon": "https://github.com/Hexphase/BimmerVision/releases/download/v0.2.78/store-icon.png",
+      "icon": "https://raw.githubusercontent.com/cbcharlie/BimmerVision/main/store-icon.png",
       "iconSha256": "2699dd3db86fef702d0889c7c6bd7b231bb62490898a257dc41113a48a158836"
     },
     {
       "id": "bimmervision-recorder",
       "kind": "tool",
       "title": "BimmerVision Recorder",
-      "version": "0.2.78",
+      "version": "0.2.79",
       "description": "Required recorder service for BimmerVision. Sets up this car automatically; never includes another car’s credentials.",
       "mguHmi": [
         "ID7"
@@ -39,10 +39,10 @@
       "optional": true,
       "uninstallable": true,
       "artifact": {
-        "name": "bimmervision-recorder@0.2.78.tgz",
-        "size": 3390563,
-        "sha256": "9aaa401a86ac55aa9959e6870ca65c3ddc89aaf1d3508f9c895422995cc72657",
-        "url": "https://github.com/Hexphase/BimmerVision/releases/download/v0.2.78/bimmervision-recorder@0.2.78.tgz"
+        "name": "bimmervision-recorder@0.2.79.tgz",
+        "size": 3413171,
+        "sha256": "f9c9e8d4abd6326a8120c2c1419ad4b76064d264f077a6cbe8ea435c1098f487",
+        "url": "https://raw.githubusercontent.com/cbcharlie/BimmerVision/main/bimmervision-recorder@0.2.79.tgz"
       }
     }
   ]

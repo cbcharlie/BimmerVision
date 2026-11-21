@@ -10,7 +10,7 @@ References: [Google device authorization](https://developers.google.com/identity
 
 Official MGU Store installs use the provisioned release catalog. Select the default releases channel; branch/source builds require your own client.
 
-`node scripts/build-release.js` creates the normal, unprovisioned source artifacts and Store app package. It never embeds a Google device identity. A source builder must supply their own Google device client privately before using native Remote Backup.
+`node scripts/build-release.js` creates the normal, unprovisioned source artifacts and Store app package. It never embeds a Google device identity. A source builder must supply their own Google device client privately before using native Remote Backup. To point the generated Store catalog at a fork, set `BV_CATALOG_REPOSITORY=OWNER/REPOSITORY` for the build; the default remains `Hexphase/BimmerVision`.
 
 The recorder first reads its existing private client configuration at `/var/opt/bimmervision-recorder/google-drive-client.json` (or the configured `BV_GOOGLE_CLIENT_FILE` path). Existing ownership, regular-file, non-symlink, 16 KiB limit, and owner-only permission checks remain in place. An unsafe or malformed private file fails closed; it does not silently select another client. When the private file is absent, an official provisioned recorder release can use its bundled `google-device-client.json`.
 
@@ -20,7 +20,7 @@ Create a private, owner-only JSON file outside every source checkout. It must co
 
 ```sh
 BV_GOOGLE_DEVICE_CLIENT_FILE="$HOME/.config/bimmervision/google-device-client.minimal.json" \
-  node scripts/build-release.js --release-dir /absolute/external/release-0.2.78
+  node scripts/build-release.js --release-dir /absolute/external/release-0.2.79
 ```
 
 The output directory must be empty and outside every Git checkout. Setting `BV_GOOGLE_DEVICE_CLIENT_FILE` without this explicit staging mode is rejected before artifacts are written. The script never prints client values.

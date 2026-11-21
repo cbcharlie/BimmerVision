@@ -242,7 +242,7 @@ RemoteBackupUI.prototype.render = async function () {
     await this.text("BACKUP_ACCOUNT_TITLE", "Google Drive Backup");
     var setup = b.setup,
       description =
-        "Back up original recordings to your own Google Drive.\nWi-Fi only · Original files remain on USB.";
+        "Back up original recordings to your own Google Drive.\nWi-Fi only · Originals remain in recording storage.";
     if (setup)
       description =
         "Scan the QR code and sign in to Google.\nEnter this code: " +
@@ -344,7 +344,7 @@ RemoteBackupUI.prototype.render = async function () {
   await this.text("BACKUP_AUTO_HINT", "Automatically back up queued recordings over Wi-Fi.\nCar uploads pause while a phone is connected.");
   await this.text("BACKUP_PAUSE_HINT", "Leaving recording enabled can significantly slow uploads.\nPauses only while stationary; recording resumes when moving.");
   await this.text("BACKUP_STATIONARY_HINT", "When checked, uploads wait until the car is physically stopped.\nWhen unchecked, uploads are allowed at any speed.");
-  await this.text("BACKUP_LOCKED_HINT", "Only upload locked drives and horn-protected clips.\nLock recordings under USB storage → Recorded Drives.");
+  await this.text("BACKUP_LOCKED_HINT", "Only upload locked drives and horn-protected clips.\nLock recordings under Recording storage → Recorded Drives.");
   var drives = b.drives || [],
     completed = (b.completed || []).slice(0, 5);
   await this.text("BACKUP_QUEUE_HEADING", "Upload Queue");

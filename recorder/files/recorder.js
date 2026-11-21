@@ -6,8 +6,8 @@ function clock(){var d=new Date(),year=d.getFullYear();return {iso:d.toISOString
 function keyframe(p){return rtp.syncPayload(p.payload);}
 var DEFAULT_QUEUE_LIMIT=64*1024*1024,MAX_QUEUE_LIMIT=96*1024*1024,BATCH_RECORDS=256,BATCH_BYTES=1024*1024,SYNC_BUSY_US=3000000,SYNC_IDLE_US=1000000;
 function Recorder(options){
- var o=options||{};if(!o.root||!o.guard||typeof o.guard.check!=='function')throw Error('Recording root and mounted USB guard required');
- this.root=path.resolve(o.root);this.guard=o.guard;this.nowUs=o.nowUs||nowUs;this.clock=o.clock||clock;this.queueLimit=o.queueLimit==null?DEFAULT_QUEUE_LIMIT:o.queueLimit;this.segmentUs=o.segmentUs==null?120000000:o.segmentUs;this.overrunUs=o.overrunUs==null?10000000:o.overrunUs;this.maxSegmentBytes=o.maxSegmentBytes||1900*1024*1024;
+ var o=options||{};if(!o.root||!o.guard||typeof o.guard.check!=='function')throw Error('Recording root and storage guard required');
+ this.root=path.resolve(o.root);this.guard=o.guard;this.ensureCapacity=typeof o.ensureCapacity==='function'?o.ensureCapacity:null;this.capacityWritten=typeof o.capacityWritten==='function'?o.capacityWritten:null;this.nowUs=o.nowUs||nowUs;this.clock=o.clock||clock;this.queueLimit=o.queueLimit==null?DEFAULT_QUEUE_LIMIT:o.queueLimit;this.segmentUs=o.segmentUs==null?120000000:o.segmentUs;this.overrunUs=o.overrunUs==null?10000000:o.overrunUs;this.maxSegmentBytes=o.maxSegmentBytes||1900*1024*1024;
  this.hornLocks=o.hornLocks||null;this.timelineId=this.hornLocks?this.hornLocks.timelineId:require('./horn-lock').timelineId();
  this.initialEvents=typeof o.initialEvents==='function'?o.initialEvents:(Array.isArray(o.initialEvents)?function(){return o.initialEvents;}:null);
  if(this.queueLimit<38||!Number.isSafeInteger(this.queueLimit))throw Error('Queue limit too small');if(this.queueLimit>MAX_QUEUE_LIMIT)this.queueLimit=MAX_QUEUE_LIMIT;this.predecessorLease=require('./library').reservePredecessor(this.root);
@@ -51,7 +51,7 @@ Recorder.prototype.openSegment=async function(atUs){
  if(this.initialEvents){var initEvents=this.initialEvents(atUs);if(Array.isArray(initEvents)){for(var k=0;k<initEvents.length;k++)await this.writeEvent(initEvents[k],atUs);}}
  this.state='Recording';
 };
-Recorder.prototype.write=async function(b){var c=this.current;await this.guard.check(c.fd);await io.safePath(c.dir,'directory');await io.writeAll(c.fd,b);c.bytes+=b.length;};
+Recorder.prototype.write=async function(b){var c=this.current;await this.guard.check(c.fd);await io.safePath(c.dir,'directory');if(this.ensureCapacity)await this.ensureCapacity(b.length);await this.guard.check(c.fd);await io.writeAll(c.fd,b);c.bytes+=b.length;if(this.capacityWritten)this.capacityWritten(b.length);};
 Recorder.prototype.writeEvent=async function(event,atUs){await this.write(archive.record(2,atUs,Buffer.from(JSON.stringify(event))));if(event.reason==='rtp-sequence-gap')this.current.manifest.observedSequenceGaps+=event.packets||0;};
 Recorder.prototype.flushLoss=async function(){
  if(this.pendingDrops){var count=this.pendingDrops;this.pendingDrops=0;await this.writeEvent({type:'discontinuity',reason:'queue-overflow',packets:count},this.lastDropUs);this.current.manifest.applicationDroppedPackets+=count;}

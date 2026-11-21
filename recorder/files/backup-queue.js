@@ -10,8 +10,8 @@ function Queue(service){this.service=service;this.serial=Promise.resolve();}
 Queue.prototype.status=async function(){
  var s=this.service,w=s.worker,c=s.options.context(),source=c.guard&&c.guard.identity;
  var manifests=c.library&&source?await c.library.backupManifests():[];
- // Do not display another USB drive's receipts against the current library.
- if(s.options.context().library!==c.library||s.options.context().guard!==c.guard)throw Error('USB source changed');
+ // Do not display another recording store's receipts against the current library.
+ if(s.options.context().library!==c.library||s.options.context().guard!==c.guard)throw Error('Recording storage changed');
  var status=s.status(),settings=w.data.settings,receipts=w.data.queue||[],active=w.phone&&w.phone.live(),now=Date.now();
  var drives=group(manifests).reverse().map(function(d){
   var allLocked=d.clips.every(function(m){return m.locked===true;}),view=(status.drives||[]).filter(function(v){return v.id===d.id;})[0];
@@ -41,9 +41,9 @@ Queue.prototype.change=function(body){
    var phoneActive=w.phone&&w.phone.live();
    if(s.cancel&&!(body.action==='add'&&phoneActive))s.cancel();if(s.busy)await s.busy;
    var c=s.options.context(),guard=c.guard,library=c.library,account=w.data.account,releases=[];
-   if(!guard||!library)throw Error('Waiting for USB');
-   if(body.sourceToken&&body.sourceToken!==token(c,w))throw Error('USB source or Google account changed');
-   async function check(){if(s.closed)throw Error('Remote backup closed');var current=s.options.context();if(current.guard!==guard||current.library!==library||w.data.account!==account)throw Error('USB source changed');await guard.check();}
+   if(!guard||!library)throw Error('Waiting for recording storage');
+   if(body.sourceToken&&body.sourceToken!==token(c,w))throw Error('Recording storage or Google account changed');
+   async function check(){if(s.closed)throw Error('Remote backup closed');var current=s.options.context();if(current.guard!==guard||current.library!==library||w.data.account!==account)throw Error('Recording storage changed');await guard.check();}
    try{
     await check();var manifests=await library.backupManifests();
     body.clipIds.forEach(function(id){if(!manifests.some(function(m){return m.id===id&&m.complete===true;}))throw Error('Selected recording is not complete or available');});

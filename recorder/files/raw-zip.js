@@ -31,7 +31,7 @@ RawZip.prototype.prepare=async function(){
   if(!this.capture||!seen['manifest.json'])throw Error('Incomplete raw recording bundle');
   // Each JSONL envelope adds fewer than 64 bytes per >=25-byte BVR record.
   // This deliberately conservative bound rejects oversize clips before HTTP headers.
-  var bound=this.capture.size*5+1048576;if(bound>MAX){var e=Error('Raw ZIP too large; copy this recording from the USB drive');e.statusCode=413;throw e;}
+  var bound=this.capture.size*5+1048576;if(bound>MAX){var e=Error('Raw ZIP too large; copy this recording directly from its storage');e.statusCode=413;throw e;}
   var error=archive.checkHeader(await io.readAt(this.capture.fd,16,0));if(error)throw Error(error);
  }catch(e){await this.close();throw e;}
 };

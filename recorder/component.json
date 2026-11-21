@@ -1,7 +1,7 @@
 {
   "id": "bimmervision-recorder",
   "kind": "tool",
-  "version": "0.2.78",
+  "version": "0.2.79",
   "title": "BimmerVision Recorder",
   "description": "Required recorder service for BimmerVision. Sets up this car automatically; never includes another car’s credentials.",
   "optional": true,
@@ -20,103 +20,103 @@
     {
       "path": "RECEIVER-PROVENANCE.json",
       "mode": "0644",
-      "sha256": "3f93c5322b362a9ccd269427e37d85d05a3ff8ee75d9dfea7a7a5124d68c4c3f",
+      "sha256": "a5a334f56a5b2c7abe1a6adb887d008a11ea7731723e62224988361c6dbdc291",
       "from": "files/RECEIVER-PROVENANCE.json"
     },
     {
       "path": "activate.js",
       "mode": "0644",
-      "sha256": "26d7a600b1afa71e48c51d236462119d8eb32fea437d35e81f12400d5e3ad942",
+      "sha256": "b1914005ebc8b949a9ece4d70d3a6d8ff763862bbf9ae2839e3c8672725a0c4e",
       "from": "files/activate.js"
     },
     {
       "path": "archive.js",
       "mode": "0644",
-      "sha256": "8045064d35dc33c1d01fd125a5f33d59af15e85548d0820ab43c76ad699e9f5d",
+      "sha256": "51c3b4be828bf04286c6958133051413b699b21459c23889f91619a48283e535",
       "from": "files/archive.js"
     },
     {
       "path": "backup-ca-bundle.LICENSE",
       "mode": "0644",
-      "sha256": "fab3dd6bdab226f1c08630b1dd917e11fcb4ec5e1e020e2c16f83a0a13863e85",
+      "sha256": "cde215e5b42363eb28ca2462c4558ff4807b38f383c537624c31e44657ac58f4",
       "from": "files/backup-ca-bundle.LICENSE"
     },
     {
       "path": "backup-ca-bundle.pem",
       "mode": "0644",
-      "sha256": "427c064216761a1e72a8b30f0d954d08cb6e4435a82091fb865afd20c8497285",
+      "sha256": "74f86136f14b9681c4efe194481d99d159bceccf28eddac6ea13facee5a98d78",
       "from": "files/backup-ca-bundle.pem"
     },
     {
       "path": "backup-ca-provenance.json",
       "mode": "0644",
-      "sha256": "6266a2d62214c01d77b406e96a2d4439544c6e7af4a6f4293ea63593482064c4",
+      "sha256": "c29f9044dbd48325caaae3bd9101cb326cb57bb774330717211b72243d9fddfc",
       "from": "files/backup-ca-provenance.json"
     },
     {
       "path": "backup-drives.js",
       "mode": "0644",
-      "sha256": "dc1bcb4b7e73a8decdfb48069c9c0abcc9a303612da74b9bebfe233e81bca463",
+      "sha256": "46c7862fb27b34a8d1e5ec70c67da739ed531bfa70f8c41638a260c78bcc7cb7",
       "from": "files/backup-drives.js"
     },
     {
       "path": "backup-http.js",
       "mode": "0644",
-      "sha256": "a15c14286611e5d8781094fc15c382b1b4df9274d48b3fa94a2096e1301d6f6a",
+      "sha256": "9c02b440c90ce412c51d89da949f98cb0eec975cd15a7b9a043f0068bc1093c0",
       "from": "files/backup-http.js"
     },
     {
       "path": "backup-network-identity.js",
       "mode": "0644",
-      "sha256": "85647b429f3925c01bb8061033c349678b2c1fa5a20b9988da3a86677bbbff2b",
+      "sha256": "e303cf05e1108e86327da579e38fe38c9699f4178d0b1abc61de31ccec16f5e7",
       "from": "files/backup-network-identity.js"
     },
     {
       "path": "backup-network-provenance.json",
       "mode": "0644",
-      "sha256": "1493d5fc588bbbd7d0cbf7579cd0ce10d4aa5602b816feb638aa1f70a04ae8b6",
+      "sha256": "bf2a368ff8d32f500bcb6ecb582a2ddb3724bbcaa6c1accf83f54b550c39dc93",
       "from": "files/backup-network-provenance.json"
     },
     {
       "path": "backup-network.js",
       "mode": "0644",
-      "sha256": "5acd0ab0fbba9630e91a506577049cc5f59a3b88ea354e1cecdc99627300671e",
+      "sha256": "9097ccfdf42fb621ca3499d981deaed2f04b36efb8be58337094026b67e8bd49",
       "from": "files/backup-network.js"
     },
     {
       "path": "backup-queue.js",
       "mode": "0644",
-      "sha256": "2df52fd10cff5672e390070094e3ee4a992b98c82272116826e351be43a70bd5",
+      "sha256": "05626f49ced8bd3056717850c05ecbc43815bb9f492ce62b5b6bb0e84814ec80",
       "from": "files/backup-queue.js"
     },
     {
       "path": "backup-recording-policy.js",
       "mode": "0644",
-      "sha256": "ac66b8a10d30a066b232df995f9b944e1f20db23d00ff11b74b41b1d3e0efcc3",
+      "sha256": "f46c91d24639422952b8ecd7b476227bd8b4cac7ac9726a2b3fb6d90ef45a8f2",
       "from": "files/backup-recording-policy.js"
     },
     {
       "path": "backup-service.js",
       "mode": "0644",
-      "sha256": "e3ba64e5b095642e7f1a76b977d7f952af557c36550de6956497bc4fc7d14018",
+      "sha256": "a5cc924484fcafb95cec26dd1c9a8b5dbf920e59a389d3a971ea97b7976defbf",
       "from": "files/backup-service.js"
     },
     {
       "path": "backup-speed-policy.js",
       "mode": "0644",
-      "sha256": "49f8f8f75f5f17cffc974a9ae30cae8641a50c8c5a9f35192c99eb97e09dd1a6",
+      "sha256": "d43c03133a3c3e6446de4da2699ccdd906e39ead39c1883147a6277a83f98ec7",
       "from": "files/backup-speed-policy.js"
     },
     {
       "path": "backup-state.js",
       "mode": "0644",
-      "sha256": "b5c9487a266230c8dca1ef7f8cc60d3d77b39621f6045b6951efe81f0a3f509d",
+      "sha256": "5dba79b9a12ab10f9b4504252d60045e1047caa2be7825f57fd0f37854469bda",
       "from": "files/backup-state.js"
     },
     {
       "path": "backup-vehicle-state.js",
       "mode": "0644",
-      "sha256": "925db828d5928a082c732b9cc714bbb4024c565cd43f083b8fe910a700234f2a",
+      "sha256": "c1efc2a8e16adfe3bd59bd9a314f1ea7222ad06265fed06b98d2210f3b42a09e",
       "from": "files/backup-vehicle-state.js"
     },
     {
@@ -128,97 +128,103 @@
     {
       "path": "blind-spot.js",
       "mode": "0644",
-      "sha256": "e651da3183a77b5a86f2d8d018ccd83186e8f3e6d764f178134833228d381774",
+      "sha256": "d3fc38a5b01a9164e58d39d9c6aa5309d6ac9f5aab17d400ab0ff42bd1f366b9",
       "from": "files/blind-spot.js"
     },
     {
       "path": "bootstrap.js",
       "mode": "0644",
-      "sha256": "5f7fdf6873c1731b21eeb466c5dd73d4aec2d8f353047b4b138446dc05001413",
+      "sha256": "415004fe5b4942e27a0a39e8058e2dbd0df3a79a734e6e3239c8c66f94665865",
       "from": "files/bootstrap.js"
     },
     {
       "path": "browser.js",
       "mode": "0644",
-      "sha256": "cf8cf7b2baad8b76da37ee3a39c9d5e4d1730804302cadb516d2a0ef109ecb53",
+      "sha256": "7f6018021968bc1329da7d4597d40aec4a1fb97e8116c6a3fc96277e2e2f4541",
       "from": "files/browser.js"
     },
     {
       "path": "camera-control.js",
       "mode": "0644",
-      "sha256": "4d1c8584c71b8dfa40c4cfe33118b1712aacb66105cef0558b5d2b13c01c8edd",
+      "sha256": "52cbee7868ba8bce648ad0b9dc6fa3a643be336638c80390559f2c781d1c661f",
       "from": "files/camera-control.js"
     },
     {
       "path": "check.js",
       "mode": "0644",
-      "sha256": "2a8d0c6c804ea58c3c61c447c11991f9b0cd6adfbebaaf6f5a1129f2967d21d1",
+      "sha256": "2018a17ba14ad6531f4aeb2999eda6d769bfb3b563c84cff3bc9ecc6f0c6f888",
       "from": "files/check.js"
     },
     {
       "path": "diagnostic-log.js",
       "mode": "0644",
-      "sha256": "4fe8754fb7fbf535f60e0b3f7683cc14af88c566939cb2a106d7e480b1233daf",
+      "sha256": "cbdb4d238daeec3717888f464dd61b0f04446e7949680a137ab6d1e931fde3e5",
       "from": "files/diagnostic-log.js"
     },
     {
       "path": "diagnostic-session.js",
       "mode": "0644",
-      "sha256": "424a064897d1f0d4fc8094c6a5e4eb314b8eab22c0b04d535e832d99cfe36bc7",
+      "sha256": "0a65f8fade6151eb1ad1fdec31c6c755709e93bc1ebf00d9580062ba13d65cb3",
       "from": "files/diagnostic-session.js"
     },
     {
       "path": "drive-actions.js",
       "mode": "0644",
-      "sha256": "dac61cc2e5da246d03301d47b12af70c3e60ea758a35b34097733f35ccb0a195",
+      "sha256": "0fb50130d7c2ea4e2f7b23fee645e92ff14fe93ab0b071384d75be299ddfd656",
       "from": "files/drive-actions.js"
     },
     {
       "path": "google-drive.js",
       "mode": "0644",
-      "sha256": "e1fc4344564d84e8deb3fc9e32a4e919b92d8924ea967f1df62448efd791adbd",
+      "sha256": "13c2259190b85d1d411d3f8afc96e4ac63fb55234cbd6f5370d58471afdf2be2",
       "from": "files/google-drive.js"
     },
     {
       "path": "horn-lock.js",
       "mode": "0644",
-      "sha256": "29e8e120db6927ffa5386f2d90090838c6eacfc43415a07d07375db4d3ad1e5f",
+      "sha256": "09db1f50ca41eda21cbc94f6f6b6d78bfce8864b6f969ecca39f9cefe305752f",
       "from": "files/horn-lock.js"
     },
     {
       "path": "horn.js",
       "mode": "0644",
-      "sha256": "32ff963bcbbd4f39eb36c95ecf8fa2766717440c18b997444b89975c52960baf",
+      "sha256": "7e743b494f2950e560fc1dfd7e53fa7f006c0c40fc7efda1c435f36cbe891065",
       "from": "files/horn.js"
+    },
+    {
+      "path": "internal-storage.js",
+      "mode": "0644",
+      "sha256": "6bc77f75b25dadfc3322615044ef56851905abd0fed41359fdf2ad962a84d208",
+      "from": "files/internal-storage.js"
     },
     {
       "path": "io.js",
       "mode": "0644",
-      "sha256": "79f2d0c1608b1567ed7a90abfff8dce570f14a9019a1290490a3f424ee95ec71",
+      "sha256": "4091e1b1121b9380d2bc08d11d197420e500a698ade5aafb1dc74b26d9f6628b",
       "from": "files/io.js"
     },
     {
       "path": "library.js",
       "mode": "0644",
-      "sha256": "c57dab18f9e6f8d43f0efce09cfacb86725aeda1d34e5ee12a390c87c6632844",
+      "sha256": "e1fd52102086035c80aeabc6d230537f4feab4af74c193308dd2830aaaad78da",
       "from": "files/library.js"
     },
     {
       "path": "main.js",
       "mode": "0644",
-      "sha256": "3416b08ff8b1314102d5b2e70f22d3d2d5a2be390fddcfd17d29f0fc2ba8f6fe",
+      "sha256": "c79203a8ecd8450ab6ed0b4ba7a2c16097f6484b538fabd997477a39a7dea948",
       "from": "files/main.js"
     },
     {
       "path": "map-tiles.js",
       "mode": "0644",
-      "sha256": "b85c1a25ac8127762540052b183c1813f516163b441487808fb01268a479ccac",
+      "sha256": "6087d3d60b80cab34a968262f3193c31a0fb1e0e80643c910841f3f9547e9003",
       "from": "files/map-tiles.js"
     },
     {
       "path": "mobile-web/app.js",
       "mode": "0644",
-      "sha256": "f44c1af568366cd24fc649580760d987f4cb1d18946ed152a3c986838badc042",
+      "sha256": "f6ff8ea51e708ef9eec7e4004673b65e1119551e48110b770f67327f33377c8c",
       "from": "files/mobile-web/app.js"
     },
     {
@@ -248,7 +254,7 @@
     {
       "path": "mobile-web/assets/vehicles/PROVENANCE.md",
       "mode": "0644",
-      "sha256": "200993c7c19ca1aa38d08d0101ef97e27e2d834da75f96fae89d1f24c93c7d71",
+      "sha256": "16000d232201df1a7d5ae60a3668f8f29840f76609bd2dd167d5f848a6b29922",
       "from": "files/mobile-web/assets/vehicles/PROVENANCE.md"
     },
     {
@@ -272,283 +278,283 @@
     {
       "path": "mobile-web/bvr-parser.js",
       "mode": "0644",
-      "sha256": "448f66a41bf90aabd75a896ae6c6eb556e189d6a99ddc2f72eca062678732515",
+      "sha256": "0705f8b347b9197e595a369ca512f6f1921f71d3e804bbd68d9c8dd7ead249db",
       "from": "files/mobile-web/bvr-parser.js"
     },
     {
       "path": "mobile-web/camera-store.js",
       "mode": "0644",
-      "sha256": "e149259f3002d4e807b1620aad412496f1ee3033d2bfa426f2ec31d50ed24ee8",
+      "sha256": "cd3860528ca9dfeaa0b3475ede325c26aff06f11ec6eacd530ab732c87f85ea3",
       "from": "files/mobile-web/camera-store.js"
     },
     {
       "path": "mobile-web/car-backup-bridge.js",
       "mode": "0644",
-      "sha256": "d1ed658affac7ce91b86902bbeb3868d821370fc5add9a8f51eff8021a005020",
+      "sha256": "2f115562aa793685f6fe3ef9714f116a21812211d9fa0052085e26e1e96f9d1d",
       "from": "files/mobile-web/car-backup-bridge.js"
     },
     {
       "path": "mobile-web/car-source.css",
       "mode": "0644",
-      "sha256": "0dc8513cd81489095c3ae2f2f61748a08bf125f3106204145e7baf02c72b0abc",
+      "sha256": "24e6b3acdd7f8069c0f262962bc39ef22676ba8c4f5ba4cd97a962b9093819e3",
       "from": "files/mobile-web/car-source.css"
     },
     {
       "path": "mobile-web/car-source.js",
       "mode": "0644",
-      "sha256": "31092e315d432352c6f9f4f628985d7c94562fd9669ed11079e2cc010995b0d5",
+      "sha256": "19586f78b930d9219d17917ce23e16661345a65596eae638878e938cdd73345e",
       "from": "files/mobile-web/car-source.js"
     },
     {
       "path": "mobile-web/catalog-refresh.js",
       "mode": "0644",
-      "sha256": "234fb1e3da2e679d6be13169b4f8adbb81f7970224b0c23565923291ca7e9c48",
+      "sha256": "e433601dc1e2f6f6532686b3e985c9d7e1d464f8b5dca9de736932d6e6f9b10d",
       "from": "files/mobile-web/catalog-refresh.js"
     },
     {
       "path": "mobile-web/dark-osm-map.js",
       "mode": "0644",
-      "sha256": "55fa0ff90680ed97a61ca0bf75556d929942b8d3d61b15dca6152e6f7aa90e09",
+      "sha256": "3be6b150fc609d99a74dfb40c7c0374432d3bf56773c518471b132d4947d9909",
       "from": "files/mobile-web/dark-osm-map.js"
     },
     {
       "path": "mobile-web/drive-grouper.js",
       "mode": "0644",
-      "sha256": "e7063694889fa0cfefe82a7635e90595be8f1f80ce805f689500f0e0498b7090",
+      "sha256": "241017c3cb6b15dbfdce5c8bca18324e488b4254c39acbe92d49846a1fec450d",
       "from": "files/mobile-web/drive-grouper.js"
     },
     {
       "path": "mobile-web/drive-timeline.js",
       "mode": "0644",
-      "sha256": "119fcdecc6215b7741dafd81990969a88e466f95473588097cbe43a8cfe1e06e",
+      "sha256": "49762c4aedb70cd1acefb397f0c51531b7e5a72f1631709bc2d29f9b242040bc",
       "from": "files/mobile-web/drive-timeline.js"
     },
     {
       "path": "mobile-web/driving-scene.js",
       "mode": "0644",
-      "sha256": "f35d7ccc5864d6e2ff4fdf474dc329d7718d4e745733ee94cec07c983f7471a8",
+      "sha256": "d621610c31070e1765fe163bf5f88256f75b0a7138b964b67b77cf7fe39c4984",
       "from": "files/mobile-web/driving-scene.js"
     },
     {
       "path": "mobile-web/driving-view.css",
       "mode": "0644",
-      "sha256": "eee9d65636cfe79c83f4cab1e248f33a53b36d4fb6e5494180aa99f06a04c72b",
+      "sha256": "51824c6879f6eb12e6cbb65ec2041c6815267a38527b831b7c99c8a68f546bb0",
       "from": "files/mobile-web/driving-view.css"
     },
     {
       "path": "mobile-web/driving-view.js",
       "mode": "0644",
-      "sha256": "ac64176dea94ac1a03f1815f06d791700a3d8962739c833ed8280579de6d63c5",
+      "sha256": "9b134faa59fb14ad7e43605de83f3a50570285b3296debde8d7d5a4b4fa1d51d",
       "from": "files/mobile-web/driving-view.js"
     },
     {
       "path": "mobile-web/exporter.js",
       "mode": "0644",
-      "sha256": "1fe4aa1f383fcedba88905b916e1c80c13692f3f6e2d75339786582b2080fd94",
+      "sha256": "85fe4d2844fb94b6908df3959750ba72e724c245138067e3de9490e1658addce",
       "from": "files/mobile-web/exporter.js"
     },
     {
       "path": "mobile-web/index.html",
       "mode": "0644",
-      "sha256": "2631d57dff5172a87bc8a8603d74c177a1589636152668ac97989987dc59a5bc",
+      "sha256": "572349f456beee65f10c95933f97c43673383b4fb85cfa2f6dbc3777ddc5d60c",
       "from": "files/mobile-web/index.html"
     },
     {
       "path": "mobile-web/mobile.css",
       "mode": "0644",
-      "sha256": "9de59d37ae9ef864f5b9d841dae53f998a104ac5e40bfb490d7383a4ec05d4d0",
+      "sha256": "b54ddea7d90bad60119332056c350999b22baedfe364a3c78f3428628f2f7f42",
       "from": "files/mobile-web/mobile.css"
     },
     {
       "path": "mobile-web/more-menu.css",
       "mode": "0644",
-      "sha256": "d7319f75fb5f828cbdecc7f75623002a270402012315cfdcd0e847c2a7276c5f",
+      "sha256": "f06b15f9386dc758709731e412a5ab89c72e06464e05ebadb9b158d980814ae9",
       "from": "files/mobile-web/more-menu.css"
     },
     {
       "path": "mobile-web/more-menu.js",
       "mode": "0644",
-      "sha256": "f162029533be41c48f40c114d06cd7c25d00e79258c68659dec38c52491d3e75",
+      "sha256": "43c357708b2da28011e9ef9a6410bac690a25adfda7e6e03df31f9879990372d",
       "from": "files/mobile-web/more-menu.js"
     },
     {
       "path": "mobile-web/mp4-muxer.js",
       "mode": "0644",
-      "sha256": "6edd39c02a5b9d629e7e2d645f48e2058cb498919cbc4cee9a4b00b3eed1e6f0",
+      "sha256": "25008d24b5aa4f1dcfd220ab878cc2cfd3d3a33b4f0b33c2b865cf8f11d52844",
       "from": "files/mobile-web/mp4-muxer.js"
     },
     {
       "path": "mobile-web/perception-data.js",
       "mode": "0644",
-      "sha256": "d2aaf7cbaf49931c3d96b5c5fd5c9e6a06ac57b74acfa3b8319220f9c98398d5",
+      "sha256": "5882253dc267dcde4465563306e841b3fe8a7306b5e2024b6538f2fe762a0cb4",
       "from": "files/mobile-web/perception-data.js"
     },
     {
       "path": "mobile-web/phone-backup-launch.js",
       "mode": "0644",
-      "sha256": "16d5df558926bfe07798211a4e37acc2daa14391dc4a372e4ed656255a4488e6",
+      "sha256": "8937859853c6b70d5576e7c6301845d570b7ba7d05a4a50734c40456437ed259",
       "from": "files/mobile-web/phone-backup-launch.js"
     },
     {
       "path": "mobile-web/playback-layout.css",
       "mode": "0644",
-      "sha256": "00afa1e589620c58ecd4c349af2d51fe456bf3402186e62c2ff569a3fd3e1ee1",
+      "sha256": "ca024a965b7caffb60fe6a3072aef67dfd1bc96ad93405e718300320cbc629e4",
       "from": "files/mobile-web/playback-layout.css"
     },
     {
       "path": "mobile-web/playback-layout.js",
       "mode": "0644",
-      "sha256": "ff72318c33f49fe7a1018418f5783451152583a08595367c8a724a5067931612",
+      "sha256": "feb06250aa46fff8ddfb0b723b337cc7e6a2f50db7f2b1549f3f425a4911103b",
       "from": "files/mobile-web/playback-layout.js"
     },
     {
       "path": "mobile-web/player.js",
       "mode": "0644",
-      "sha256": "46807a775707e3244295585b9de671250d99f518387a8d8fbab01625087cde67",
+      "sha256": "3363a4a15d5b868b9d1d93fd71e0722ce3358d9417dcd030260288dac6d1e7fb",
       "from": "files/mobile-web/player.js"
     },
     {
       "path": "mobile-web/raw-download.js",
       "mode": "0644",
-      "sha256": "abcee57655e64d3bf7ea4ef117b0a9e8180c6b295adf99a53659fd4fa7e583b9",
+      "sha256": "023e6f8523c45c3df02d23a6baa15edb09ed0f86d34a5089faba939304e03b7a",
       "from": "files/mobile-web/raw-download.js"
     },
     {
       "path": "mobile-web/recording-backup-action.js",
       "mode": "0644",
-      "sha256": "cf6b76661132f8296520d5e4fcbad2818e97a1c96d6cbb5f95b02ca44428602e",
+      "sha256": "4d7d512c0456ab6e55fef799413e0a02d2f354f7026e843dcc2ee0b9524dfba7",
       "from": "files/mobile-web/recording-backup-action.js"
     },
     {
       "path": "mobile-web/recording-cache.js",
       "mode": "0644",
-      "sha256": "3b96908b9d35bcb24454459875fac9491e7bbd8d6c83207aca364b822a739c3a",
+      "sha256": "f9d7ee2388512644bb7e72d7887519e0e808c918ccdf1b7bfc297a9b0007c7dd",
       "from": "files/mobile-web/recording-cache.js"
     },
     {
       "path": "mobile-web/recording-navigation.js",
       "mode": "0644",
-      "sha256": "28664ced31e9c23b78927f9d030066bfc4661c8e37090294a5e679c164963924",
+      "sha256": "8ccbb107387c2e088125de26f531b5a3b67f0e48f4b4f33a8aa2e046f9fb6f63",
       "from": "files/mobile-web/recording-navigation.js"
     },
     {
       "path": "mobile-web/recording-notice.js",
       "mode": "0644",
-      "sha256": "c4bb1b3449ef6af7e6cb37af9b2888a4f84567cdef30d5fb1cf7761399f1135f",
+      "sha256": "0c29af52ed2736ec994349c34754c2677810bf96913caf7d72c7c97a2a07a509",
       "from": "files/mobile-web/recording-notice.js"
     },
     {
       "path": "mobile-web/recordings-layout.css",
       "mode": "0644",
-      "sha256": "e5df87c2bb706ef88d63599245bd6ac2e84161ec90525e22568384ea685830fc",
+      "sha256": "fb02016cf4bf045770a7eb22ec4dc0ac8c058938c03ab709182744ec47e56263",
       "from": "files/mobile-web/recordings-layout.css"
     },
     {
       "path": "mobile-web/release-checker.js",
       "mode": "0644",
-      "sha256": "3055b924ab5f94077515d3c15f0ca155c02572bda4807e2cb53fd74ba5620117",
+      "sha256": "f3e299270e6d21774eb4d98ebb5f3de01b77a11881e8222d9273f7fcfa5ed40b",
       "from": "files/mobile-web/release-checker.js"
     },
     {
       "path": "mobile-web/remote-backup-page.css",
       "mode": "0644",
-      "sha256": "36eda8a55c7a5b2915f020083ce3e26f6c843c13921d8456440e8649dfb47db3",
+      "sha256": "0fbf1f422f036be0a505f2effa3bc0a59b49088fca5d41aac045b4bdf66a29cd",
       "from": "files/mobile-web/remote-backup-page.css"
     },
     {
       "path": "mobile-web/remote-backup-page.js",
       "mode": "0644",
-      "sha256": "19f4a8b46d5c3b0ed1d737d065837a7ae9091f7c89bc47fa7fbc6f1c5aea659e",
+      "sha256": "7edb18b03da787e8b4f3b446a311a65a2265be81b6327336d4198e03706b73f7",
       "from": "files/mobile-web/remote-backup-page.js"
     },
     {
       "path": "mobile-web/road-estimation.js",
       "mode": "0644",
-      "sha256": "75258fc791805f568f02046492aa52a967cf5e3007869387c5b9affef36ab605",
+      "sha256": "8dc8f7c4353081e1a409ead51b37d4504ac16a26d268c4b025c9d4100c0c06cb",
       "from": "files/mobile-web/road-estimation.js"
     },
     {
       "path": "mobile-web/rtp-h264.js",
       "mode": "0644",
-      "sha256": "3b7fa25e04f0e10d898a30304a1ff2d9a1ab34dc141795b7273e5a8988400cd0",
+      "sha256": "052eb51752987a7022485918d0da3300755a10b9ad4f590bea778f4e541b319c",
       "from": "files/mobile-web/rtp-h264.js"
     },
     {
       "path": "mobile-web/sedan-selector.js",
       "mode": "0644",
-      "sha256": "277815b75a3b5b50fbf97baf617e8a54f36d8832f7ad9bd1878400c0d32af3e6",
+      "sha256": "ca81fe45e2ae4e90086f5b174b2704144ed119b50c7a2a59852c66af32e10aa5",
       "from": "files/mobile-web/sedan-selector.js"
     },
     {
       "path": "mobile-web/source-manager.js",
       "mode": "0644",
-      "sha256": "5331f852b4ca320c13f16605f0672c843ae3d48aebdce79daafc4093f272d787",
+      "sha256": "3b50e99c07b4561863f1a8ff071bf49de581e455636193a9c5aff1b5f3cb8115",
       "from": "files/mobile-web/source-manager.js"
     },
     {
       "path": "mobile-web/speed-limit-client.js",
       "mode": "0644",
-      "sha256": "6232fd8d94106a70eaa8e98cab2d9b222b44d08ac7eef54a72eb607feab73e5a",
+      "sha256": "f608930197ba9540579f84857cdccc5a7951422e06d2cb23b3f9af43359c5186",
       "from": "files/mobile-web/speed-limit-client.js"
     },
     {
       "path": "mobile-web/standard-fleet.js",
       "mode": "0644",
-      "sha256": "8335dd7f42a5f06379f16d29f4343f8840a3f02f8b31394f51e7b0f044680827",
+      "sha256": "052937433f02b9f80391b0abf4460fc8121e1f24b7e0987acdb07b095095b252",
       "from": "files/mobile-web/standard-fleet.js"
     },
     {
       "path": "mobile-web/style.css",
       "mode": "0644",
-      "sha256": "348014ad1c4522ae7350d1e14a1f6ba2f738f1ca03dfde2d01073bc6862b6fa5",
+      "sha256": "91f67cd20a15b389a8c949b7ebaf476024a7df5fd2ac88a7f44da566a99ce402",
       "from": "files/mobile-web/style.css"
     },
     {
       "path": "mobile-web/traffic-signs.js",
       "mode": "0644",
-      "sha256": "65c4564df362f3c33c3d5347d2baff6a4faa569e0616a3f04ef796df50ac7c8a",
+      "sha256": "de59c71929b89aff5dbd05e0bf265d24abd1d2c84b27f156316f3d1b2dafaf01",
       "from": "files/mobile-web/traffic-signs.js"
     },
     {
       "path": "mobile-web/vehicle-motion.js",
       "mode": "0644",
-      "sha256": "28bbf81ce403741eab99aca7ae64cf19097e8d9bee85a3244b8fe0ffe9e39510",
+      "sha256": "4e4f7381f199fe5f5ca6984bfcfaec6962a6e576e5e6274c7e29585bfe9ce337",
       "from": "files/mobile-web/vehicle-motion.js"
     },
     {
       "path": "mobile-web/vendor/three/LICENSE",
       "mode": "0644",
-      "sha256": "4c40a1ef62450b857c3b2aaf294936304cd552d965fbcd9d32d4c5bcf4ba4454",
+      "sha256": "f57eb9202058667d12aebd854fe8a86d6feaeab51078180df5615bfdbd5cff05",
       "from": "files/mobile-web/vendor/three/LICENSE"
     },
     {
       "path": "mobile-web/vendor/three/RoomEnvironment.js",
       "mode": "0644",
-      "sha256": "625d0d8ac8690a73799ea0e2c577d6260162e0da97698c4fe9b03715909ac214",
+      "sha256": "3c203ac46038a4f2cd16c2247e6983b7d529bfbdde674a2c16469eb8938ca1e7",
       "from": "files/mobile-web/vendor/three/RoomEnvironment.js"
     },
     {
       "path": "mobile-web/vendor/three/three.module.min.js",
       "mode": "0644",
-      "sha256": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7",
+      "sha256": "8e71269b773b81802e7f5f71d8528f1e0c29a82c55f0609845b528389aed8439",
       "from": "files/mobile-web/vendor/three/three.module.min.js"
     },
     {
       "path": "mobile-web/viewer-connection.js",
       "mode": "0644",
-      "sha256": "4efd58570a731551045bcdbe76d178031653c24a8113bb2b8d70eee9953d1cb7",
+      "sha256": "c55950f3f283f68306be69800e2f60b95eaebdf9f357240f264dbe27fff64826",
       "from": "files/mobile-web/viewer-connection.js"
     },
     {
       "path": "oem-signals.js",
       "mode": "0644",
-      "sha256": "2fb2a7fe7e380e1c75690d0ef87f0b4c7704accb84b6f78087c9b3690f9d640b",
+      "sha256": "ce1e9c6e60ff915431ad1b370fbb7ceb43192064da435b26efbad5d06de1d167",
       "from": "files/oem-signals.js"
     },
     {
       "path": "pack.js",
       "mode": "0644",
-      "sha256": "7010976c9a3ddbbb1a7eb61df2e8ccd872f1ce5e3e945e578c82ead1a52c386b",
+      "sha256": "12f7cf5bb60c48632309a4b2a3bf4c6881bc4c577f95c0f102f6433fe21f5a53",
       "from": "files/pack.js"
     },
     {
@@ -560,43 +566,43 @@
     {
       "path": "perception-schema.json",
       "mode": "0644",
-      "sha256": "9214327af3946fcf07eeb6b1d3521afaba45aafd38d2aca86fdc6ecb37c380b8",
+      "sha256": "dcb215561313d9e2cd440d2e187a34a36b6d010af5e45c5824b773058b673598",
       "from": "files/perception-schema.json"
     },
     {
       "path": "perception-transport.json",
       "mode": "0644",
-      "sha256": "ac4555bd9119ae2f5d714564a1835cd9452122d64c3869736e37b4a949c90b5b",
+      "sha256": "ecea52fbd80094ac2615b45595129186e62559ff6d5ef2eaba13eaa99bcdc286",
       "from": "files/perception-transport.json"
     },
     {
       "path": "perception.js",
       "mode": "0644",
-      "sha256": "827456a86cd9c1034652472a22b448c79dedb4726770a39e3785075c613dc026",
+      "sha256": "f7d1d282a377b864ae73c11c082ef098ad40752d1670b7472dbf6b70c08273f9",
       "from": "files/perception.js"
     },
     {
       "path": "phone-backup.js",
       "mode": "0644",
-      "sha256": "36f1ae7c28cb26d5a517ab85705d3ae283b5ce715b4e2fe286ccf42df1d7068f",
+      "sha256": "1a9be3c4c53457cd47400184ea347a9c4c03113dd5e5f80f8fd8bcf4274cd5de",
       "from": "files/phone-backup.js"
     },
     {
       "path": "phone-lease.js",
       "mode": "0644",
-      "sha256": "40364ce07a66f1c1658bd76a42baed2607550f0e43ddbf7300a35c3b4cf1be96",
+      "sha256": "6649d8b109c9c76a28596e4934f6c3d66d09863cb9d2a5170c762e23d0703633",
       "from": "files/phone-lease.js"
     },
     {
       "path": "phone-network.js",
       "mode": "0644",
-      "sha256": "90270089f13e47aec04a7990210131ecd299fd20ec355f038071bdfbe4873431",
+      "sha256": "23917fce11c851ed06cbabab31be941e6a272e0eb274ccc3685b9a4b83260eaa",
       "from": "files/phone-network.js"
     },
     {
       "path": "raw-zip.js",
       "mode": "0644",
-      "sha256": "13b0ef542b8ab73391d2eef30ad0a774ee7ec917e9e1bb31d3923b50583b4702",
+      "sha256": "7d6267d377cb2ecd0e936517d2b8b3a0daa73af199bacfd2c414e51a838f4ef4",
       "from": "files/raw-zip.js"
     },
     {
@@ -608,79 +614,85 @@
     {
       "path": "recorded-drives.js",
       "mode": "0644",
-      "sha256": "22dd835296077d35182b1389a55a1c700d55cac1aa70a8124eec80ad2d1da4ac",
+      "sha256": "67083bd4a70770dc45b366401d31e92be6d6999f5612551e8da03ad6d083d5ea",
       "from": "files/recorded-drives.js"
     },
     {
       "path": "recorder.js",
       "mode": "0644",
-      "sha256": "a9cc882d5774c79a710bd729a1d080d22b1387af3046b1d96432c5b9866e13d6",
+      "sha256": "263a9923ff05870cce0ecc9fd410bdeb958328f70a6b010579701d4316d5f91b",
       "from": "files/recorder.js"
     },
     {
       "path": "recording-overview.js",
       "mode": "0644",
-      "sha256": "d08be34bb622bbb9e24a5d639ab0dc5ccc6eb50abf384468c94015033b43cdbc",
+      "sha256": "1108ec504a96dcd3e68f86150fe2462261999e9f99ccecb9d2f71a7f23f8bc9b",
       "from": "files/recording-overview.js"
     },
     {
       "path": "recording-preference.js",
       "mode": "0644",
-      "sha256": "03b51104630728b62770097ecb72ea01dbfc4347d4a35f4dc36e44a841e70ad0",
+      "sha256": "8e93293ff1adaef2116a6099db2875854449998cee6e2b4b3fdff98787f75b1b",
       "from": "files/recording-preference.js"
     },
     {
       "path": "recovery.js",
       "mode": "0644",
-      "sha256": "9d088569747158dc9a93890fc39b224b47d26131830d26cef182f00457aa5d05",
+      "sha256": "118c11ef252204305f599b11af1076d1f511636b2cc022d109bef7b413cd90b3",
       "from": "files/recovery.js"
     },
     {
       "path": "remote-backup.js",
       "mode": "0644",
-      "sha256": "32cb3d75c51c539655d377cbb3eda3a580d858cca2c79bee43c86b4876602bdd",
+      "sha256": "11472d1028803a7d0944c924eaa2490ec1e215050980094d98cbf13036c7b1d3",
       "from": "files/remote-backup.js"
     },
     {
       "path": "rtp.js",
       "mode": "0644",
-      "sha256": "0e906581d68b00548a0b99c841b2b07182eab1d6ec62720b8e798994062c6d32",
+      "sha256": "9bd8deac2415d6fe746a90fbb8f7476a97726e41e822ca155bb69703b28ccb37",
       "from": "files/rtp.js"
     },
     {
       "path": "setup.js",
       "mode": "0644",
-      "sha256": "85054ecf104a0fa733ca53ecd6e521721b510dbb1ee9c977b758589b339974af",
+      "sha256": "1cb553aba484f90542c441975b73524528b77e9a511a9fa1af8e2de453cc9043",
       "from": "files/setup.js"
     },
     {
       "path": "speed-limit.js",
       "mode": "0644",
-      "sha256": "34cbd7a9e4bd6dc551e674abc1ca1d988cdef3b76a086fd3b55dc5c9c29399a0",
+      "sha256": "1bd6a3d1c2d25e9a0dea511db7730ccd8011b9ef98b504cfe5edc5fd7c98ef32",
       "from": "files/speed-limit.js"
+    },
+    {
+      "path": "storage-copy.js",
+      "mode": "0644",
+      "sha256": "9ff48a6898fdb03b04e1a4d516883cecf6d62a30ff1f8de19c1f24e7e937263c",
+      "from": "files/storage-copy.js"
     },
     {
       "path": "telemetry.js",
       "mode": "0644",
-      "sha256": "da37fc9d44f56d3b214d5d6099eacfcbc9ad35e7d0881959ef0dd61d6f3c9e53",
+      "sha256": "0aea38ed7a4adf121684d2c916f0c88072a9cfcd64ea12289ba78af20901fe02",
       "from": "files/telemetry.js"
     },
     {
       "path": "transfer.js",
       "mode": "0644",
-      "sha256": "aa1ec2553a7a51280a91a7196ad7e572197a85ff0a7c7b55b219ce141e929454",
+      "sha256": "6baea9a2d659a5bb768acb36c70b25d43a58907c5a7b73da3d64131dda026fc1",
       "from": "files/transfer.js"
     },
     {
       "path": "usb.js",
       "mode": "0644",
-      "sha256": "43daa0f88ce0646e881919ebba7fb6655c14b85b38c9a16cd1e67ed92317e8e0",
+      "sha256": "9cacfa76b96ad708fff6af0c907ac7b29332f4f0a4203a7235145fedf1923e83",
       "from": "files/usb.js"
     },
     {
       "path": "version.json",
       "mode": "0644",
-      "sha256": "fa0e8b86e54fe64212e54f0255a531bd50a4a081ed1229850041783f30810741",
+      "sha256": "3530fd05fceab5710e83c5259c818f64120fbbe200254b61ea442d0ab0f7f9c5",
       "from": "files/version.json"
     }
   ],
