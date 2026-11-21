@@ -77,7 +77,7 @@ Recording.prototype.update = function (patch) {
   directory(this.directory);
   var current = preference.controls(read(this.controlFile));
   patch = preference.controls(patch);
-  if (Object.prototype.hasOwnProperty.call(patch,'internalStorageLimitBytes')&&!preference.validInternalLimit(patch.internalStorageLimitBytes)) throw new Error('Invalid internal storage limit');
+    if (Object.prototype.hasOwnProperty.call(patch,'internalStorageLimitBytes')&&!preference.validInternalLimit(patch.internalStorageLimitBytes)) throw new Error('Invalid internal storage limit');
   if (Object.prototype.hasOwnProperty.call(patch, 'continuous')) {
     preference.write(this.preferenceDirectory, uid(), patch.continuous);
     patch.recordingAction = crypto.randomBytes(16).toString('hex');

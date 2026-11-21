@@ -1169,6 +1169,17 @@
             }
           ]
         },
+        "418": {
+          "type": "button",
+          "name": "DRIVES_COPY",
+          "properties": {
+            "Visible": { "value": 1, "type": "UInt" },
+            "Focusable": { "value": 3, "type": "UInt" }
+          },
+          "rows": [
+            { "Text": { "value": "Copy this drive…", "type": "Text" } }
+          ]
+        },
         "414": {
           "type": "button",
           "name": "DRIVES_OLDER",

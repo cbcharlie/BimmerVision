@@ -45,7 +45,7 @@ Record your drives automatically, review all four cameras simultaneously, and ex
 
 ## Current release
 
-**0.2.79** adds selectable internal recording storage with a 1–10 GB limit, automatic cleanup of the oldest unlocked clips, and retains Google Drive Remote Backup and horn protection. View your BimmerVision Google Drive backups at [BimmerVision.app](https://bimmervision.app/). Install the app and required recorder together. See [release notes](RELEASE_NOTES.md).
+**0.2.79** adds selectable internal recording storage with a 1–10 GB limit, automatic cleanup of the oldest unlocked clips, and verified copy between internal storage and USB. Copies preserve locks and horn protection; the source stays in place. It also retains Google Drive Remote Backup and horn protection. View your BimmerVision Google Drive backups at [BimmerVision.app](https://bimmervision.app/). Install the app and required recorder together. See [release notes](RELEASE_NOTES.md).
 
 ## Features
 
@@ -276,6 +276,8 @@ Open **Recording storage** in the iDrive application to view:
 ### Automatic Recording Cleanup
 
 When internal storage reaches its configured limit, BimmerVision automatically removes the oldest **unlocked** recordings to make room for new footage. USB storage continues to use its available capacity.
+
+Use **Copy / erase recordings…** to copy a complete library between storage locations, or open **Recorded Drives** and choose **Copy this drive…** to transfer one group at a time. Copies are written to a temporary directory, checked against the source, and made visible only after verification. The original remains in place. Before copying to internal storage, BimmerVision estimates whether older unlocked clips must be removed and asks you to confirm; locked and horn-protected clips are never selected for cleanup.
 
 **Locked recordings are never deleted by automatic cleanup.**
 

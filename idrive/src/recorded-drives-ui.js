@@ -71,6 +71,11 @@ RecordedDrivesUI.prototype.initialize = function () {
   bind("DRIVES_LOCK", "change", function (e) {
     return self.lock(e.selected);
   });
+  bind("DRIVES_COPY", "action", async function () {
+    var v=self.view(),drive=(v.data.drives||[]).filter(function(d){return d.id===self.selectedId;})[0];
+    if(!v.current||v.data.busy||self.pendingId||!drive)return;
+    await o.beginCopyFromDrive(drive);
+  });
   bind("DRIVES_OLDER", "action", function () {
     return self.page(1);
   });
@@ -204,6 +209,8 @@ RecordedDrivesUI.prototype.render = async function () {
   await this.property("DRIVES_LIST", "Enabled", ready && drives.length > 0);
   await this.text("DRIVES_LOCK", "Lock this drive");
   await this.property("DRIVES_LOCK", "Enabled", ready && !!selected);
+  await this.text("DRIVES_COPY", "Copy this drive…");
+  await this.property("DRIVES_COPY", "Enabled", ready && !!selected);
   var checked = !!(selected && selected.locked),
     checkbox = this.owner.component("DRIVES_LOCK");
   if (
@@ -235,7 +242,7 @@ RecordedDrivesUI.prototype.render = async function () {
   await this.text("DRIVES_STATUS", status);
   await this.text(
     "DRIVES_HINT",
-    "Locks all completed recordings in the selected drive.\nNew recordings are listed after they finish.\nChoose locked-drive-only uploads in Remote Backup.",
+    "Lock/unlock the selected drive group.\nCopy it elsewhere without deleting the original.\nRemote Backup can upload locked groups only.",
   );
   await this.text("DRIVES_OLDER", "Older drives");
   await this.text("DRIVES_NEWER", "Newer drives");

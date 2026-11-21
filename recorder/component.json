@@ -212,7 +212,7 @@
     {
       "path": "main.js",
       "mode": "0644",
-      "sha256": "f753d09577f6e1a1c91583b28c19a5043b0c1ca35efe0a1de4f601c6034f35d1",
+      "sha256": "c79203a8ecd8450ab6ed0b4ba7a2c16097f6484b538fabd997477a39a7dea948",
       "from": "files/main.js"
     },
     {
@@ -632,7 +632,7 @@
     {
       "path": "recording-preference.js",
       "mode": "0644",
-      "sha256": "e75c1fc89e680cf519db83f00a23c648478d9cdce6dfeabeab92823eb1769ec4",
+      "sha256": "8e93293ff1adaef2116a6099db2875854449998cee6e2b4b3fdff98787f75b1b",
       "from": "files/recording-preference.js"
     },
     {
@@ -664,6 +664,12 @@
       "mode": "0644",
       "sha256": "1bd6a3d1c2d25e9a0dea511db7730ccd8011b9ef98b504cfe5edc5fd7c98ef32",
       "from": "files/speed-limit.js"
+    },
+    {
+      "path": "storage-copy.js",
+      "mode": "0644",
+      "sha256": "9ff48a6898fdb03b04e1a4d516883cecf6d62a30ff1f8de19c1f24e7e937263c",
+      "from": "files/storage-copy.js"
     },
     {
       "path": "telemetry.js",

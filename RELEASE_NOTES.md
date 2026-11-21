@@ -28,6 +28,7 @@ BimmerVision can now record to either a writable USB drive or the MGU's persiste
 - **Choose an internal storage limit:** set a 1–10 GB cap in **About**; new installs start at 4 GB.
 - **Keep recording as the cap fills:** the recorder removes the oldest eligible unlocked recordings as it needs room. Locked clips, horn-protected clips, active clips and clips required for playback remain protected. If protected recordings fill the cap, the recorder stops and reports that internal storage is full.
 - **Manage both destinations:** the Recording storage screen shows internal storage alongside connected USB drives. Playback, locking, phone transfer and Remote Backup use the same recording library.
+- **Copy between storage locations:** copy a complete library or one recorded drive group between internal storage and USB. Copies are verified, preserve protection metadata, and leave the source untouched. Copying into internal storage shows a cleanup estimate before any oldest unlocked clips are removed.
 
 Install **app and recorder 0.2.79 together** through MGU Store. Internal recording storage uses a dedicated folder under `/var/opt/bimmervision-recorder` and is limited to the configured cap.
 

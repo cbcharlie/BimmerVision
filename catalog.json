@@ -15,8 +15,8 @@
       },
       "artifact": {
         "name": "bimmervision@0.2.79.tgz",
-        "size": 78834,
-        "sha256": "356f996968adffb59e5a76b452abc7e7614373dc6e6d64cd204980b916699296",
+        "size": 81338,
+        "sha256": "d11106a4993adf47c478689d740761b601e2185926dfaf28aa14e8e8b4724f1a",
         "url": "https://raw.githubusercontent.com/cbcharlie/BimmerVision/main/bimmervision@0.2.79.tgz"
       },
       "icon": "https://raw.githubusercontent.com/cbcharlie/BimmerVision/main/store-icon.png",
@@ -40,8 +40,8 @@
       "uninstallable": true,
       "artifact": {
         "name": "bimmervision-recorder@0.2.79.tgz",
-        "size": 3407821,
-        "sha256": "2221b5d135addb7230775190e93fcab4b02468eb0fc84a1556f640655e143801",
+        "size": 3413171,
+        "sha256": "f9c9e8d4abd6326a8120c2c1419ad4b76064d264f077a6cbe8ea435c1098f487",
         "url": "https://raw.githubusercontent.com/cbcharlie/BimmerVision/main/bimmervision-recorder@0.2.79.tgz"
       }
     }
